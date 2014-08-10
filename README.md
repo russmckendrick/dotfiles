@@ -7,7 +7,7 @@
 Quick installation guide, backs up original dot files and stores them out of the way in a git ignored directory.
 
 ```bash
-git clone git@github.com:russmckendrick/dotfiles.git ~.dotfiles
+git clone git@github.com:russmckendrick/dotfiles.git ~/.dotfiles
 sudo easy_install Pygments
 brew install tree
 mv ~/.bash_profile ~/.dotfiles/backups/
