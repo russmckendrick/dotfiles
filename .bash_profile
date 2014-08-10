@@ -11,6 +11,9 @@ alias s='open -a "Sublime Text 2"'
 # Open specified files in Marked 2
 alias m='open -a "Marked 2"'
 
+# Run Jekyll with the _config-dev.yml file
+alias jb='jekyll serve -w -c _config-dev.yml'
+
 # Color LS
 colorflag="-G"
 alias ls="command ls ${colorflag}"

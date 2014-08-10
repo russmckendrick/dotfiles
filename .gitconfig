@@ -21,3 +21,6 @@
 	added = yellow
 	changed = green
 	untracked = cyan
+[user]
+	name = Russ McKendrick
+	email = russ@media-glass.es
