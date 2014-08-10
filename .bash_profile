@@ -1,7 +1,3 @@
-### Homebrew Stuff
-
-
-
 ### Aliases
 
 # Open specified files in Sublime Text 2
@@ -20,12 +16,15 @@ alias ls="command ls ${colorflag}"
 alias l="ls -lF ${colorflag}" # all files, in long format
 alias la="ls -laF ${colorflag}" # all files inc dotfiles, in long format
 alias lsd='ls -lF ${colorflag} | grep "^d"' # only directories
+alias lr="ls -ltr ${colorflag}"
+alias lra="ls -ltrA ${colorflag}"
 
 # Quicker navigation
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
+alias tree="tree -Csuha -I '.git'"
 
 # Shortcuts to my Code folder in my home directory
 alias code="cd ~/Documents/Code/"
