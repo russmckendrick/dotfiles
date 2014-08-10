@@ -1,8 +1,15 @@
+### Homebrew Stuff
+
+
+
 ### Aliases
 
-# Open specified files in Sublime Text
+# Open specified files in Sublime Text 2
 # "s ." will open the current directory in Sublime
-alias s='open -a "Sublime Text"'
+alias s='open -a "Sublime Text 2"'
+
+# Open specified files in Marked 2
+alias m='open -a "Marked 2"'
 
 # Color LS
 colorflag="-G"
@@ -18,8 +25,8 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
 # Shortcuts to my Code folder in my home directory
-alias code="cd ~/Code"
-alias sites="cd ~/Code/sites"
+alias code="cd ~/Documents/Code/"
+alias blog="cd ~/Documents/Code/russmckendrick.github.io"
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
@@ -94,7 +101,7 @@ function parse_git_branch() {
 
 # Change this symbol to something sweet.
 # (http://en.wikipedia.org/wiki/Unicode_symbols)
-symbol="⚡ "
+symbol="⚡  "
 
 export PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n$symbol\[$RESET\]"
 export PS2="\[$ORANGE\]→ \[$RESET\]"
@@ -106,4 +113,4 @@ export PS2="\[$ORANGE\]→ \[$RESET\]"
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
 
 # init z! (https://github.com/rupa/z)
-. ~/z.sh
+. ~/.z.sh

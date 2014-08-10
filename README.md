@@ -1,52 +1,44 @@
-> I write a free newsletter: **[Get Hired as a Web Developer](http://www.barryclark.co/newsletter)**. Check it out to improve your chances of landing the job you want.
+# Dotfiles
 
-# Bashstrap
+![Screenshot](https://raw.github.com/russmckendrick/dotfiles/master/screenshot.png)
 
-Bashstrap is a quick way to spruce up OSX terminal. It cuts out the fluff, adds in timesaving features, and provides a solid foundation for customizing your terminal style.
+### Installation
 
-<img src="https://raw.github.com/barryclark/bashstrap/master/screenshot.png" alt="screenshot" />
+Quick installation guide, backs up original dot files and stores them out of the way in a git ignored directory.
 
-### Feature list
+```bash
+git clone git@github.com:russmckendrick/dotfiles.git ~.dotfiles
+sudo easy_install Pygments
+mv ~/.bash_profile ~/.dotfiles/backups/
+mv ~/.bashrc ~/.dotfiles/backups/
+mv ~/.gitconfig ~/.dotfiles/backups/
+ln -s ~/.dotfiles/.bash_profile ~/.bash_profile 
+ln -s ~/.dotfiles/.bashrc ~/.bashrc
+ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
+ln -s ~/.dotfiles/.hushlogin ~/.hushlogin
+ln -s ~/.dotfiles/z.sh ~/.z.sh
+```
+
+### Features
 
 **Faster directory navigation**
 
-- Open your current directory in Sublime Text (with just 2 characters)
-- Jump directories rapidly, without having to set aliases—using Z (my favorite feature!)
+- `s .` or `s filename.txt` will open your current directory or a file in [Sublime Text 2](http://www.sublimetext.com/2)
+- `m README.md` will open your the file in [Marked 2](http://marked2app.com/)
+- Jump directories rapidly, without having to set aliases using [Z](https://github.com/rupa/z)
 - Tab bar displays your current directory
-- Lots of quick shortcut aliases that I use for git and moving around directories
+- Lots of quick shortcut aliases used for git and moving around directories
 
 **Customized bash prompt line**
 
 - Git branch status inline
-- ☠ ahoy! An easily customizable symbol
-- Stripped out extraneous text
+- ⚡ An easily customizable symbol
 
 **Updated color scheme**
 
 - Colored 'ls'
 - Syntax highlighted 'cat'
 
-### Installation: dotfiles (2 mins)
+### Bashstrap
 
-1. Back up your current dotfiles (optional):
-
-		mv ~/.bash_profile ~/.bash_profile_backup
-		mv ~/.bashrc ~/.bashrc_backup
-		mv ~/.gitconfig ~/.gitconfig_backup
-
-2. Install Bashstrap into your home dir:
-
-		cd; curl -#L https://github.com/barryclark/bashstrap/tarball/master | tar -xzv --strip-components 1 --exclude={README.md,screenshot.png}
-
-### Installation: iTerm (10 mins)
-
-Following these steps will make your iTerm look identical to mine in the screenshot above.
-
-1. [Install iTerm](http://www.iterm2.com/#/section/downloads).
-2. Turn off long tab titles: *iTerm Preferences > Appearance > Windows & Tab Titles > uncheck them all*
-3. Prettier font: *iTerm Preferences > Profiles > Default > Text > Regular Font & Non-ASCII > 16pt Menlo regular*
-4. Unbold font: *iTerm Preferences > Profiles > Default > Text > Text Rendering > uncheck "Draw bold text in bold font"*
-5. Lighter blue for the directory highlighting: *iTerm Preferences > Profiles > Default > Colors > click Blue and make it lighter*
-6. Make default window size bigger: *iTerm Preferences > Profiles > Default > Window > Setting for New Windows > I like Columns: 80, Rows 28*
-
-### For more on configuring Bashstrap, see my blog post: [Creating Bashstrap](http://barryclark.co/creating-bashstrap)
+This is my fork of [Bashstrap](https://github.com/barryclark/bashstrap).

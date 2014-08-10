@@ -1,13 +1,7 @@
-# Some sensible files to ignore
-
-# Folder view configuration files
 .DS_Store
 Desktop.ini
-
-# Thumbnail cache files
 ._*
 Thumbs.db
-
-# Files that might appear on external disks
-.Spotlight-V100
-.Trashes
+backups/.bash_profile
+backups/.bashrc
+backups/.gitconfig
