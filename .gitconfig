@@ -24,3 +24,6 @@
 [user]
 	name = Russ McKendrick
 	email = russ@media-glass.es
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
