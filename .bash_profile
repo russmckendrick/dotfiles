@@ -43,7 +43,21 @@ alias gs='git status'
 alias ga='git add .'
 alias gc='git commit -m' # requires you to type a commit message
 alias gp='git push'
-
+alias gpu='git pull'
+-
+# Docker alias and function
+alias dl="docker ps -l -q"
+alias dps="docker ps"
+alias dpa="docker ps -a"
+alias di="docker images"
+alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
+alias dkd="docker run -d -P"
+alias dki="docker run -i -t -P"
+dstop() { docker stop $(docker ps -a -q);}
+drm() { docker rm $(docker ps -a -q); }
+dri() { docker rmi $(docker images -q); }
+dbu() {docker build -t=$1 .;}
+dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort;}
 
 ### Prompt Colors
 # Modified version of @gf3’s Sexy Bash Prompt
