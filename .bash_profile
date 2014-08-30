@@ -53,11 +53,6 @@ alias di="docker images"
 alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
 alias dkd="docker run -d -P"
 alias dki="docker run -i -t -P"
-dstop() { docker stop $(docker ps -a -q);}
-drm() { docker rm $(docker ps -a -q); }
-dri() { docker rmi $(docker images -q); }
-dbu() {docker build -t=$1 .;}
-dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort;}
 
 ### Prompt Colors
 # Modified version of @gf3’s Sexy Bash Prompt
