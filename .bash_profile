@@ -44,7 +44,7 @@ alias ga='git add .'
 alias gc='git commit -m' # requires you to type a commit message
 alias gp='git push'
 alias gpu='git pull'
--
+
 # Docker alias and function
 alias dl="docker ps -l -q"
 alias dps="docker ps"
