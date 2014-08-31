@@ -114,7 +114,7 @@ function parse_git_branch() {
 # (http://en.wikipedia.org/wiki/Unicode_symbols)
 symbol="⚡  "
 
-export PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n$symbol\[$RESET\]"
+export PS1="\[${BOLD}${MAGENTA}\]\u @ \h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n$symbol\[$RESET\]"
 export PS2="\[$ORANGE\]→ \[$RESET\]"
 
 
