@@ -126,3 +126,4 @@ export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
 # init z! (https://github.com/rupa/z)
 . ~/.z.sh
 export PATH=/usr/local/bin:$PATH
+export PATH=$PATH:/usr/local/go/bin
