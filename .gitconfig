@@ -2,7 +2,7 @@
 	# TBC
 [core]
 	# Use custom `.gitignore`
-	excludesfile = ~/.gitignore
+	excludesfile = ~/.dotfiles/.gitignore
 	# Treat spaces before tabs, lines that are indented with 8 or more spaces, and all kinds of trailing whitespace as an error
 	whitespace = space-before-tab,indent-with-non-tab,trailing-space
 [color]
@@ -25,5 +25,6 @@
 	name = Russ McKendrick
 	email = russ@media-glass.es
 [filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
