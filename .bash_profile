@@ -32,6 +32,7 @@ alias jb='jekyll serve -w -c _config-dev.yml'
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
+alias hoste='sudo open -a "Sublime Text 2" /private/etc/hosts'
 
 # Colored up cat!
 # You must install Pygments first - "sudo easy_install Pygments"
@@ -130,5 +131,26 @@ export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
 
 # init z! (https://github.com/rupa/z)
 . ~/.z.sh
-export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/bin:~/.local/lib/aws/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
+
+
+# CLI Proxy Proxy Settings
+# (This sets various proxy settings on the commandline based on which location I have enabled)
+
+   if [ -f "/usr/sbin/scselect" ]; then
+      export LOCATION=$(/usr/sbin/scselect 2>&1 | perl -ne 'if (m/^\s+\*\s+(\S+)\s+\((.+)\)$/) { print "$2\n"; }')
+   fi
+
+   # Location-specific settings
+
+   if [ ! -z "$LOCATION" -a "$LOCATION" = "Work" ]; then
+      export ALL_PROXY="http://10.0.0.2:3128"
+      export npm_config_proxy="http://10.0.0.2:3128"
+	  export npm_config_https_proxy="http://10.0.0.2:3128"
+   else
+      unset http_proxy
+      unset npm_config_proxy
+      unset npm_config_https_proxy
+   fi
+
