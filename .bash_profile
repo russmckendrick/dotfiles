@@ -134,6 +134,8 @@ export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
 export PATH=/usr/local/bin:~/.local/lib/aws/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 
+# Add the right path for Cask
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # CLI Proxy Proxy Settings
 # (This sets various proxy settings on the commandline based on which location I have enabled)
