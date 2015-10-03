@@ -27,6 +27,7 @@ alias tree="tree -Csuha -I '.git'"
 alias code="cd ~/Documents/Code/"
 alias blog="cd ~/Documents/Code/blog"
 alias proj="cd ~/Documents/Projects"
+alias dot="cd ~/.dotfiles/"
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
@@ -37,7 +38,7 @@ alias hoste='sudo open -a "Sublime Text 2" /private/etc/hosts'
 alias c='pygmentize -O style=monokai -f console256 -g'
 
 # Git
-# You must install Git first - ""
+# You must install Git first
 alias gs='git status'
 alias ga='git add .'
 alias gc='git commit -m' # requires you to type a commit message
