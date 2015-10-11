@@ -4,8 +4,8 @@
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text 2"'
 
-# Open specified files in Marked 2
-alias m='open -a "Marked 2"'
+# Open specified files in iA Writer
+alias i='open -a "iA Writer"'
 
 # Color LS
 colorflag="-G"
@@ -29,6 +29,16 @@ alias blog="cd ~/Documents/Code/blog"
 alias proj="cd ~/Documents/Projects"
 alias dot="cd ~/.dotfiles/"
 
+# Vagrant aliases
+alias vup="vagrant up"
+alias vh="vagrant halt"
+alias vs="vagrant suspend"
+alias vr="vagrant resume"
+alias vp="vagrant provision"
+alias vrld="vagrant reload"
+alias vssh="vagrant ssh"
+alias vstat="vagrant global-status"
+
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
 alias hoste='sudo open -a "Sublime Text 2" /private/etc/hosts'
@@ -37,8 +47,7 @@ alias hoste='sudo open -a "Sublime Text 2" /private/etc/hosts'
 # You must install Pygments first - "sudo easy_install Pygments"
 alias c='pygmentize -O style=monokai -f console256 -g'
 
-# Git
-# You must install Git first
+# Git aliases
 alias gs='git status'
 alias ga='git add .'
 alias gc='git commit -m' # requires you to type a commit message
