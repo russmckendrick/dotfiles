@@ -19,7 +19,7 @@ alias dml="docker-machine ls"
 dms() { docker-machine start $1; }
 dme() { eval $(docker-machine env $1); }
 dms() { docker-machine start $1; }
-dmip() { docker-machine ip $1; }x
+dmip() { docker-machine ip $1; }
 
 # Color LS
 colorflag="-G"
