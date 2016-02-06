@@ -7,6 +7,20 @@ alias s='open -a "Sublime Text 2"'
 # Open specified files in iA Writer
 alias i='open -a "iA Writer"'
 
+# Terraform
+tg() { terraform graph $1 | dot -Tpng > $1/graph.png; }
+tp() { terraform plan -state=$1/terraform.tfstate $1; }
+ts() { terraform show $1/terraform.tfstate; }
+ta() { terraform apply -state=$1/terraform.tfstate $1; }
+tdestroy() { terraform destroy -state=$1/terraform.tfstate $1; }
+
+# Docker Machine
+alias dml="docker-machine ls"
+dms() { docker-machine start $1; }
+dme() { eval $(docker-machine env $1); }
+dms() { docker-machine start $1; }
+dmip() { docker-machine ip $1; }x
+
 # Color LS
 colorflag="-G"
 alias ls="command ls ${colorflag}"
