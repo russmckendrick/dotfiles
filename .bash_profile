@@ -28,6 +28,7 @@ alias code="cd ~/Documents/Code/"
 alias blog="cd ~/Documents/Code/blog"
 alias proj="cd ~/Documents/Projects"
 alias dt="cd ~/.dotfiles/"
+alias pkt="cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/Packt\ Work/"
 
 # Vagrant aliases
 alias vup="vagrant up"
