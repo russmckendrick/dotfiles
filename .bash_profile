@@ -86,7 +86,7 @@ export PATH=$PATH:/usr/local/go/bin
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # init z! (https://github.com/rupa/z)
-. ~/dotfiles/z.sh
+. ~/.dotfiles/z.sh
 
 #
 # Everything below here can be imported from https://github.com/barryclark/bashstrap/blob/master/.bash_profile
