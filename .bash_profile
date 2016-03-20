@@ -85,9 +85,6 @@ export PATH=/usr/local/bin:~/.local/lib/aws/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
-# init z! (https://github.com/rupa/z)
-. ~/.dotfiles/z.sh
-
 #
 # Everything below here can be imported from https://github.com/barryclark/bashstrap/blob/master/.bash_profile
 #
@@ -151,3 +148,6 @@ export PS2="\[$ORANGE\]→ \[$RESET\]"
 
 # Only show the current directory's name in the tab
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
+
+# init z! (https://github.com/rupa/z)
+. ~/.dotfiles/z.sh
