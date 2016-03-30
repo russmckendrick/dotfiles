@@ -4,9 +4,6 @@
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text 2"'
 
-# Open specified files in iA Writer
-alias i='open -a "iA Writer"'
-
 # Terraform
 tg() { terraform graph $1 | dot -Tpng > $1/graph.png; }
 tp() { terraform plan -state=$1/terraform.tfstate $1; }
@@ -81,7 +78,7 @@ alias dki="docker run -i -t -P"
 
 # Some defaults and paths
 
-export PATH=/usr/local/bin:~/.local/lib/aws/bin:$PATH
+export PATH=/usr/local/bin:~/.local/lib/aws/bin:/usr/local/sbin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
