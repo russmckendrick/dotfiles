@@ -81,6 +81,8 @@ alias dki="docker run -i -t -P"
 export PATH=/usr/local/bin:~/.local/lib/aws/bin:/usr/local/sbin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+export ANSIBLE_SSH_CONTROL_PATH='/tmp/%%h-%%r'
+export ANSIBLE_HOST_KEY_CHECKING=False
 
 #
 # Everything below here can be imported from https://github.com/barryclark/bashstrap/blob/master/.bash_profile
