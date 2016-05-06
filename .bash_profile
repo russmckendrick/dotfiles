@@ -2,7 +2,7 @@
 
 # Open specified files in Sublime Text 2
 # "s ." will open the current directory in Sublime
-alias s='open -a "Sublime Text 2"'
+alias s='open -a "Sublime Text"'
 
 # Terraform
 tg() { terraform graph $1 | dot -Tpng > $1/graph.png; }
