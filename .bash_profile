@@ -39,6 +39,7 @@ alias code="cd ~/Documents/Code/"
 alias blog="cd ~/Documents/Code/blog"
 alias proj="cd ~/Documents/Projects"
 alias dt="cd ~/.dotfiles/"
+alias icd="cd ~/Library/Mobile\ Documents/com~apple~CloudDocs"
 alias pkt="cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/Packt\ Work/"
 
 # Vagrant aliases
@@ -54,7 +55,7 @@ alias vstat="vagrant global-status"
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
-alias hoste='sudo open -a "Sublime Text 2" /private/etc/hosts'
+alias hoste='sudo open -a "Sublime Text" /private/etc/hosts'
 
 # Colored up cat!
 # You must install Pygments first - "sudo easy_install Pygments"
