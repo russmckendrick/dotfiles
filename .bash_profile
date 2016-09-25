@@ -18,6 +18,11 @@ dme() { eval $(docker-machine env $1); }
 dms() { docker-machine start $1; }
 dmip() { docker-machine ip $1; }
 
+# Run SSH Add for the session
+if [ -f ~/.ssh/id_rsa ]; then
+    ssh-add -K ~/.ssh/id_rsa 2>/dev/null
+fi
+
 # Color LS
 colorflag="-G"
 alias ls="command ls ${colorflag}"
