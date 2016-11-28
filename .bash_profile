@@ -82,6 +82,8 @@ alias di="docker images"
 alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
 alias dkd="docker run -d -P"
 alias dki="docker run -i -t -P"
+alias drmi="docker rmi $(docker images -q)"
+alias drmc="docker rm $(docker ps -a -q)"
 
 # Some defaults and paths
 
