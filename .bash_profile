@@ -1,9 +1,9 @@
 ### Aliases
 
-# Open specified files in Sublime Text 2
+# Open specified files in Sublime Text or Atom
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text"'
-alias a='open -a "Atom"'
+alias a='atom'
 
 # Terraform
 tg() { terraform graph $1 | dot -Tpng > $1/graph.png; }
@@ -42,11 +42,9 @@ alias tree="tree -I '.git'"
 
 # Shortcuts to my Code folder in my home directory
 alias code="cd ~/Documents/Code/"
-alias blog="cd ~/Documents/Code/blog"
 alias proj="cd ~/Documents/Projects"
 alias dt="cd ~/.dotfiles/"
-alias icd="cd ~/Library/Mobile\ Documents/com~apple~CloudDocs"
-alias pkt="cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/Packt\ Work/"
+alias pkt="cd cd ~/Documents/Packt\ Work/"
 
 # Vagrant aliases
 alias vup="vagrant up"
@@ -61,7 +59,7 @@ alias vstat="vagrant global-status"
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
-alias hoste='sudo open -a "Sublime Text" /private/etc/hosts'
+alias hoste='sudo atom /private/etc/hosts'
 
 # Colored up cat!
 # You must install Pygments first - "sudo easy_install Pygments"
@@ -86,7 +84,6 @@ alias drmi="docker rmi $(docker images -q)"
 alias drmc="docker rm $(docker ps -a -q)"
 
 # Some defaults and paths
-
 export PATH=/usr/local/bin:~/.local/lib/aws/bin:/usr/local/sbin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
