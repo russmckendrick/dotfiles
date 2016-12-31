@@ -4,6 +4,7 @@
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text"'
 alias a='atom'
+alias c='code'
 
 # Terraform
 tg() { terraform graph $1 | dot -Tpng > $1/graph.png; }
@@ -41,7 +42,7 @@ alias .....="cd ../../../.."
 alias tree="tree -I '.git'"
 
 # Shortcuts to my Code folder in my home directory
-alias code="cd ~/Documents/Code/"
+alias cod="cd ~/Documents/Code/"
 alias proj="cd ~/Documents/Projects"
 alias dt="cd ~/.dotfiles/"
 alias pkt="cd cd ~/Documents/Packt\ Work/"
