@@ -3,8 +3,7 @@
 # Open specified files in Sublime Text or Atom
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text"'
-alias a='atom'
-alias c='code'
+alias v='code'
 
 # Terraform
 tg() { terraform graph $1 | dot -Tpng > $1/graph.png; }
