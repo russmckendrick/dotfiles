@@ -2,7 +2,7 @@
 	# TBC
 [core]
 	# Use custom `.gitignore`
-	excludesfile = ~/.dotfiles/.gitignore
+	excludesfile = /Users/russ/.dotfiles/.gitignore
 	# Treat spaces before tabs, lines that are indented with 8 or more spaces, and all kinds of trailing whitespace as an error
 	whitespace = space-before-tab,indent-with-non-tab,trailing-space
 [color]
@@ -22,7 +22,7 @@
 	changed = green
 	untracked = cyan
 [user]
-	name = Russ McKendrick
+	name = Russ Mckendrick
 	email = russ@mckendrick.io
 [filter "media"]
 	required = true
@@ -34,6 +34,7 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+[commit]
+	template = /Users/russ/.stCommitMsg
+[credential]
+	helper = osxkeychain
