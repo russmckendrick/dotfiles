@@ -89,6 +89,7 @@ export PATH=$PATH:/usr/local/go/bin
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export ANSIBLE_SSH_CONTROL_PATH='/tmp/%%h-%%r'
 export ANSIBLE_HOST_KEY_CHECKING=False
+export ANSIBLE_LOG_PATH="/var/log/ansible.log"
 
 #
 # Everything below here can be imported from https://github.com/barryclark/bashstrap/blob/master/.bash_profile
@@ -156,3 +157,5 @@ export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
 
 # init z! (https://github.com/rupa/z)
 . ~/.dotfiles/z.sh
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
