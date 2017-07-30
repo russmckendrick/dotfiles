@@ -3,7 +3,8 @@
 # Open specified files in Sublime Text or Atom
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text"'
-alias v='code'
+alias v='atom'
+alias a='atom'
 
 # Terraform
 tg() { terraform graph $1 | dot -Tpng > $1/graph.png; }
@@ -87,7 +88,7 @@ alias drmc="docker rm $(docker ps -a -q)"
 export PATH=/usr/local/bin:~/.local/lib/aws/bin:/usr/local/sbin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-export ANSIBLE_SSH_CONTROL_PATH='/tmp/%%h-%%r'
+export ANSIBLE_SSH_CONTROL_PATH='/tmp/%%h-%%p-%%r'
 export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_LOG_PATH="/var/log/ansible.log"
 
