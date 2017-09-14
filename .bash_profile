@@ -4,7 +4,7 @@
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text"'
 alias v='open -a "Sublime Text"'
-alias a='open -a "Sublime Text"''
+alias a='open -a "Sublime Text"'
 
 # Terraform
 tg() { terraform graph $1 | dot -Tpng > $1/graph.png; }
