@@ -269,15 +269,15 @@
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>1341 247 1232 472 0 0 2560 1417 </string>
+	<string>1328 247 1232 338 0 0 2560 1417 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>1395 200 599 505 0 0 2560 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>83 422 796 473 0 0 2560 1417 </string>
+	<string>83 378 918 495 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1280 734 1274 683 0 0 2560 1417 </string>
+	<string>232 76 1010 567 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>1280 44 1274 683 0 0 2560 1417 </string>
+	<string>1280 152 1010 567 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>626 562 810 507 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
@@ -870,7 +870,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>AndaleMono 14</string>
+			<string>AndaleMono 16</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -993,7 +993,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-07-30T14:47:28Z</date>
+	<date>2017-09-05T19:33:08Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>WordCharacters</key>
