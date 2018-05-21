@@ -14,11 +14,11 @@ ta() { terraform apply -state=$1/terraform.tfstate $1; }
 tdestroy() { terraform destroy -state=$1/terraform.tfstate $1; }
 
 # Docker Machine
-alias dml="docker-machine ls"
-dms() { docker-machine start $1; }
-dme() { eval $(docker-machine env $1); }
-dms() { docker-machine start $1; }
-dmip() { docker-machine ip $1; }
+# alias dml="docker-machine ls"
+# dms() { docker-machine start $1; }
+# dme() { eval $(docker-machine env $1); }
+# dms() { docker-machine start $1; }
+# dmip() { docker-machine ip $1; }
 
 # Run SSH Add for the session
 if [ -f ~/.ssh/id_rsa ]; then
@@ -74,15 +74,15 @@ alias gp='git push'
 alias gpu='git pull'
 
 # Docker alias and function
-alias dl="docker ps -l -q"
-alias dps="docker ps"
-alias dpa="docker ps -a"
-alias di="docker images"
-alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
-alias dkd="docker run -d -P"
-alias dki="docker run -i -t -P"
-alias drmi="docker rmi $(docker images -q)"
-alias drmc="docker rm $(docker ps -a -q)"
+# alias dl="docker ps -l -q"
+# alias dps="docker ps"
+# alias dpa="docker ps -a"
+# alias di="docker images"
+# alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
+# alias dkd="docker run -d -P"
+# alias dki="docker run -i -t -P"
+# alias drmi="docker rmi $(docker images -q)"
+# alias drmc="docker rm $(docker ps -a -q)"
 
 # Some defaults and paths
 export PATH=/usr/local/bin:~/.local/lib/aws/bin:/usr/local/sbin:$PATH
@@ -91,6 +91,9 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export ANSIBLE_SSH_CONTROL_PATH='/tmp/%%h-%%p-%%r'
 export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_LOG_PATH="/var/log/ansible.log"
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# Fix an issue with pyton bombing out when using WinRM
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 #
