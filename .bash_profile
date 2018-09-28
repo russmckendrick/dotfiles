@@ -25,6 +25,9 @@ if [ -f ~/.ssh/id_rsa ]; then
     ssh-add -K ~/.ssh/id_rsa 2>/dev/null
 fi
 
+# add an alias for pip adding the user flag !!!
+alias pii="pip install --user "
+
 # Color LS
 colorflag="-G"
 alias ls="command ls ${colorflag}"
@@ -43,9 +46,8 @@ alias tree="tree -I '.git'"
 
 # Shortcuts to my Code folder in my home directory
 alias cod="cd ~/Documents/Code/"
-alias proj="cd ~/Documents/Projects"
 alias dt="cd ~/.dotfiles/"
-alias pkt="cd cd ~/Documents/Packt\ Work/"
+alias pkt=" cd ~/Documents/Packt\ Work/"
 
 # Vagrant aliases
 alias vup="vagrant up"
