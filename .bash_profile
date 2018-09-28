@@ -85,7 +85,7 @@ alias gpu='git pull'
 # alias drmc="docker rm $(docker ps -a -q)"
 
 # Some defaults and paths
-export PATH=/usr/local/bin:~/.local/lib/aws/bin:/usr/local/sbin:$PATH
+export PATH=/usr/local/bin:~/.local/lib/aws/bin:/usr/local/sbin:~/Library/Python/2.7/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export ANSIBLE_SSH_CONTROL_PATH='/tmp/%%h-%%p-%%r'
