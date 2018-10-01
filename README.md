@@ -10,6 +10,7 @@ Quick installation guide, backs up original dot files and stores them out of the
 git clone git@github.com:russmckendrick/dotfiles.git ~/.dotfiles
 sudo easy_install Pygments
 brew install tree
+brew cask install ksdiff
 mv ~/.bash_profile ~/.dotfiles/backups/
 mv ~/.bashrc ~/.dotfiles/backups/
 mv ~/.gitconfig ~/.dotfiles/backups/
@@ -24,7 +25,7 @@ ln -s ~/.dotfiles/z.sh ~/.z.sh
 
 **Faster directory navigation**
 
-- `a .` or `a filename.txt` will open your current directory or a file in [Atom](http://atom.io/)
+- `v .`, `s .`, `a .` or `v filename.txt` will open your current directory or a file in SublimeText
 - Jump directories rapidly, without having to set aliases using [Z](https://github.com/rupa/z)
 - Tab bar displays your current directory
 - Lots of quick shortcut aliases used for git and moving around directories
