@@ -6,20 +6,6 @@ alias s='open -a "Sublime Text"'
 alias v='open -a "Sublime Text"'
 alias a='open -a "Sublime Text"'
 
-# Terraform
-tg() { terraform graph $1 | dot -Tpng > $1/graph.png; }
-tp() { terraform plan -state=$1/terraform.tfstate $1; }
-ts() { terraform show $1/terraform.tfstate; }
-ta() { terraform apply -state=$1/terraform.tfstate $1; }
-tdestroy() { terraform destroy -state=$1/terraform.tfstate $1; }
-
-# Docker Machine
-# alias dml="docker-machine ls"
-# dms() { docker-machine start $1; }
-# dme() { eval $(docker-machine env $1); }
-# dms() { docker-machine start $1; }
-# dmip() { docker-machine ip $1; }
-
 # Run SSH Add for the session
 if [ -f ~/.ssh/id_rsa ]; then
     ssh-add -K ~/.ssh/id_rsa 2>/dev/null
@@ -47,18 +33,6 @@ alias tree="tree -I '.git'"
 # Shortcuts to my Code folder in my home directory
 alias cod="cd ~/Documents/Code/"
 alias dt="cd ~/.dotfiles/"
-alias pkt=" cd ~/Documents/Packt\ Work/"
-
-# Vagrant aliases
-alias vup="vagrant up"
-alias vh="vagrant halt"
-alias vs="vagrant suspend"
-alias vr="vagrant resume"
-alias vp="vagrant provision"
-alias vd="vagrant destroy"
-alias vrld="vagrant reload"
-alias vssh="vagrant ssh"
-alias vstat="vagrant global-status"
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
@@ -144,7 +118,7 @@ export RESET
 
 # Git branch details
 function parse_git_dirty() {
-	[[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*"
+	[[ $(git status 2> /dev/null | tail -n1) != *"working tree clean"* ]] && echo "*"
 }
 function parse_git_branch() {
 	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
