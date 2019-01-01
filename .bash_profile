@@ -14,7 +14,7 @@ fi
 # add an alias for pip adding the user flag !!!
 alias pii="pip install --user "
 
-alias awss="switcher "
+alias swi="/usr/local/bin/switcher "
 
 # alias to jump around work servers, work from a work machine and home from home :)
 alias home="ssh -i ~/.ssh/russ-work -A -t russ.mckendrick@10.2.5.125 ssh -A -t "
