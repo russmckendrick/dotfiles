@@ -17,6 +17,7 @@ alias pii="pip install --user "
 # alias to jump around work servers, work from a work machine and home from home :)
 alias home="ssh -i ~/.ssh/russ-work -A -t russ.mckendrick@10.2.5.125 ssh -A -t "
 alias work="ssh -A -t russ.mckendrick@10.2.5.125 ssh -A -t "
+alias proxy="ssh -D 8888 russ.mckendrick@10.2.5.125"
 
 # Color LS
 colorflag="-G"
