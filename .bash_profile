@@ -3,8 +3,8 @@
 # Open specified files in Sublime Text or Atom
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text"'
-alias v='open -a "Sublime Text"'
 alias a='open -a "Sublime Text"'
+alias v='code ../'
 
 # Run SSH Add for the session
 if [ -f ~/.ssh/id_rsa ]; then
