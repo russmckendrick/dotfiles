@@ -14,8 +14,10 @@ fi
 # add an alias for pip adding the user flag !!!
 alias pii="pip install --user "
 
-# add an alias for switcher
-alias swi="/usr/local/bin/switcher "
+# add an alias for some common terraform tasks
+alias tfrm="rm -rf .terraform *.tfstate*"
+alias tfi="terraform init"
+alias tfa="terraform apply -auto-approve"
 
 # alias to jump around work servers, work from a work machine and home from home :)
 alias home="ssh -i ~/.ssh/russ-work -A -t russ.mckendrick@10.2.5.125 ssh -A -t "
