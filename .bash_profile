@@ -18,6 +18,7 @@ alias pii="pip install --user "
 alias tfrm="rm -rf .terraform *.tfstate*"
 alias tfi="terraform init"
 alias tfa="terraform apply -auto-approve"
+alias tfd="terraform destroy"
 
 # alias to jump around work servers, work from a work machine and home from home :)
 alias home="ssh -i ~/.ssh/russ-work -A -t russ.mckendrick@10.2.5.125 ssh -A -t "
