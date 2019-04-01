@@ -4,7 +4,7 @@
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text"'
 alias a='open -a "Sublime Text"'
-alias v='code ../'
+alias v='code '
 
 # Run SSH Add for the session
 if [ -f ~/.ssh/id_rsa ]; then
@@ -14,7 +14,11 @@ fi
 # add an alias for pip adding the user flag !!!
 alias pii="pip install --user "
 
-alias swi="/usr/local/bin/switcher "
+# add an alias for some common terraform tasks
+alias tfrm="rm -rf .terraform *.tfstate*"
+alias tfi="terraform init"
+alias tfa="terraform apply -auto-approve"
+alias tfd="terraform destroy"
 
 # alias to jump around work servers, work from a work machine and home from home :)
 alias home="ssh -i ~/.ssh/russ-work -A -t russ.mckendrick@10.2.5.125 ssh -A -t "
@@ -75,7 +79,6 @@ export ANSIBLE_SSH_CONTROL_PATH='/tmp/%%h-%%p-%%r'
 export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_LOG_PATH="/var/log/ansible.log"
 export ANSIBLE_REMOTE_TMP="/tmp"
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # Fix an issue with pyton bombing out when using WinRM
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
