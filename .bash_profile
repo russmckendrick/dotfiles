@@ -20,6 +20,10 @@ alias tfi="terraform init"
 alias tfa="terraform apply -auto-approve"
 alias tfd="terraform destroy"
 
+# add some init lines
+function initans { mkdir "$1" "$1/group_vars" "$1/roles" && touch "$1/group_vars/common.yml" "$1/production" "$1/README.md" "$1/site.yml" "$1/Vagrantfile" "$1/.gitignore" "$1/roles/.gitkeep" && code "$1"; }
+alias initter=""
+
 # alias to jump around work servers, work from a work machine and home from home :)
 alias home="ssh -i ~/.ssh/russ-work -A -t russ.mckendrick@10.2.5.125 ssh -A -t "
 alias work="ssh -A -t russ.mckendrick@10.2.5.125 ssh -A -t "
