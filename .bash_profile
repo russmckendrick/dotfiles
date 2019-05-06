@@ -138,7 +138,7 @@ export RESET
 
 # Git branch details
 function parse_git_dirty() {
-	[[ $(git status 2> /dev/null | tail -n1) != *"working tree clean"* ]] && echo "*"
+	[[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*"
 }
 function parse_git_branch() {
 	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
@@ -146,10 +146,11 @@ function parse_git_branch() {
 
 # Change this symbol to something sweet.
 # (http://en.wikipedia.org/wiki/Unicode_symbols)
-symbol="⚡  "
+symbol="⚡ "
 
 export PS1="\[${MAGENTA}\]\u \[$RESET\]in \[$GREEN\]\w\[$RESET\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$RESET\]\n$symbol\[$RESET\]"
 export PS2="\[$ORANGE\]→ \[$RESET\]"
+
 
 ### Misc
 
