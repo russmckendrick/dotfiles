@@ -51,3 +51,5 @@
 	prompt = false
 [merge]
 	tool = Kaleidoscope
+[commit]
+  template = ~/.dotfiles/.gitmessage

@@ -3,7 +3,7 @@
 # Open specified files in Sublime Text or Atom
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text"'
-alias a='open -a "Sublime Text"'
+alias a='atom '
 alias v='code '
 
 # Run SSH Add for the session
@@ -87,6 +87,10 @@ export ANSIBLE_REMOTE_TMP="/tmp"
 
 # Fix an issue with pyton bombing out when using WinRM
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# Set the history file size
+export HISTSIZE=100000
+export HISTFILESIZE=100000
 
 #
 # Everything below here can be imported from https://github.com/barryclark/bashstrap/blob/master/.bash_profile
