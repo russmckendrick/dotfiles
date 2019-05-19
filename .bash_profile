@@ -29,6 +29,7 @@ alias home="ssh -i ~/.ssh/russ-work -A -t russ.mckendrick@10.2.5.125 ssh -A -t "
 alias work="ssh -A -t russ.mckendrick@10.2.5.125 ssh -A -t "
 alias proxy="ssh -D 8888 russ.mckendrick@10.2.5.125"
 alias sshm="ssh -A -t russ.mckendrick@10.200.106.34 ssh -A -t "
+alias sshmhome="ssh -i ~/.ssh/russ-work -A -t russ.mckendrick@10.200.106.34 ssh -A -t "
 
 # Color LS
 colorflag="-G"
