@@ -53,7 +53,8 @@ alias dt="cd ~/.dotfiles/"
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
-alias hoste='sudo atom /private/etc/hosts'
+alias hoste='sudo code /private/etc/hosts'
+alias flush='sudo killall -HUP mDNSResponder; sleep 2;'
 
 # Colored up cat!
 # You must install Pygments first - "sudo easy_install Pygments"
@@ -65,6 +66,8 @@ alias ga='git add .'
 alias gc='git commit -m' # requires you to type a commit message
 alias gp='git push'
 alias gpu='git pull'
+
+alias get='python ~/Library/Python/2.7/lib/python/site-packages/gallery_get.py'
 
 # Docker alias and function
 # alias dl="docker ps -l -q"
