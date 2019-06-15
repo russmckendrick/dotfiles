@@ -19,6 +19,7 @@ ln -s ~/.dotfiles/.bashrc ~/.bashrc
 ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
 ln -s ~/.dotfiles/.hushlogin ~/.hushlogin
 ln -s ~/.dotfiles/z.sh ~/.z.sh
+ln -s ~/.dotfiles/.zshrc ~/.zshrc
 ```
 
 ### Features

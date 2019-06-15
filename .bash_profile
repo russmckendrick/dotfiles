@@ -21,7 +21,7 @@ alias tfa="terraform apply -auto-approve"
 alias tfd="terraform destroy"
 
 # add some init lines
-function initans { mkdir "$1" "$1/group_vars" "$1/roles" && touch "$1/group_vars/common.yml" "$1/production" "$1/README.md" "$1/site.yml" "$1/Vagrantfile" "$1/.gitignore" "$1/roles/.gitkeep" && code "$1"; }
+function initans { mkdir "$1" "$1/group_vars" "$1/roles" "$1/inv" && touch "$1/group_vars/common.yml" "$1/inv/production" "$1/README.md" "$1/site.yml" "$1/Vagrantfile" "$1/.gitignore" "$1/roles/.gitkeep" && echo "*.retry \ngroup_vars/dyn*" > "$1/.gitignore" && echo "# $1" > "$1/README.md"  && code "$1"; }
 alias initter=""
 
 # alias to jump around work servers, work from a work machine and home from home :)
@@ -82,7 +82,10 @@ alias get='python ~/Library/Python/2.7/lib/python/site-packages/gallery_get.py'
 
 # Some defaults and paths
 export PATH=/usr/local/bin:~/.local/lib/aws/bin:/usr/local/sbin:~/Library/Python/2.7/bin:$PATH
-export PATH=$PATH:/usr/local/go/bin
+export PATH=/usr/local/opt/ruby/bin:$PATH
+export GEM_HOME=$HOME/gems
+export PATH=$HOME/gems/bin:$PATH
+export PATH=/usr/local/go/bin:$PATH
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export ANSIBLE_SSH_CONTROL_PATH='/tmp/%%h-%%p-%%r'
 export ANSIBLE_HOST_KEY_CHECKING=False
