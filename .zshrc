@@ -117,7 +117,6 @@ export ANSIBLE_REMOTE_TMP="/tmp"
 # Open specified files in Sublime Text or Atom
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text"'
-alias a='atom '
 alias v='code '
 
 # Run SSH Add for the session
