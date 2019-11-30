@@ -4,6 +4,7 @@
 backups/.bash_profile
 backups/.bashrc
 backups/.gitconfig
+backups/.zshrc
 
 # Compiled Source
 ######################

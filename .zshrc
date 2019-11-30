@@ -102,7 +102,7 @@ DEFAULT_USER=`whoami`
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Some defaults and paths
-export PATH=/usr/local/bin:~/.local/lib/aws/bin:/usr/local/sbin:~/Library/Python/2.7/bin:$PATH
+export PATH=/usr/local/bin:~/.local/lib/aws/bin:/usr/local/sbin:~/.local/bin:$PATH
 export PATH=/usr/local/opt/ruby/bin:$PATH
 export GEM_HOME=$HOME/gems
 export PATH=$HOME/gems/bin:$PATH
@@ -110,8 +110,12 @@ export PATH=/usr/local/go/bin:$PATH
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export ANSIBLE_SSH_CONTROL_PATH='/tmp/%%h-%%p-%%r'
 export ANSIBLE_HOST_KEY_CHECKING=False
-export ANSIBLE_LOG_PATH="/var/log/ansible.log"
+export ANSIBLE_LOG_PATH="~/.local/ansible.log"
 export ANSIBLE_REMOTE_TMP="/tmp"
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 ### Aliases
 
@@ -180,8 +184,6 @@ alias ga='git add .'
 alias gc='git commit -m' # requires you to type a commit message
 alias gp='git push'
 alias gpu='git pull'
-
-alias get='python ~/Library/Python/2.7/lib/python/site-packages/gallery_get.py'
 
 # Fix an issue with pyton bombing out when using WinRM
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
