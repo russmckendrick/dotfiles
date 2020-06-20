@@ -129,8 +129,11 @@ if [ -f ~/.ssh/id_rsa ]; then
     ssh-add -K ~/.ssh/id_rsa 2>/dev/null
 fi
 
+# add an alias for drawio
+alias draw.io='/Applications/draw.io.app/Contents/MacOS/draw.io'
+
 # add an alias for pip adding the user flag !!!
-alias pii="pip install --user "
+alias pii="python -m pip install --user "
 
 # add an alias for some common terraform tasks
 alias tfrm="rm -rf .terraform *.tfstate*"
@@ -143,11 +146,14 @@ function initans { mkdir "$1" "$1/group_vars" "$1/roles" "$1/inv" && touch "$1/g
 alias initter=""
 
 # alias to jump around work servers, work from a work machine and home from home :)
-alias home="ssh -i ~/.ssh/russ-work -A -t russ.mckendrick@10.2.5.125 ssh -A -t "
+alias home="ssh -i ~/.ssh/id_rsa.work -A -t russ.mckendrick@10.2.5.125 ssh -A -t "
 alias work="ssh -A -t russ.mckendrick@10.2.5.125 ssh -A -t "
 alias proxy="ssh -D 8888 russ.mckendrick@10.2.5.125"
 alias sshm="ssh -A -t russ.mckendrick@10.200.106.34 ssh -A -t "
-alias sshmhome="ssh -i ~/.ssh/russ-work -A -t russ.mckendrick@10.200.106.34 ssh -A -t "
+alias sshmhome="ssh -i ~/.ssh/id_rsa.work -A -t russ.mckendrick@10.200.106.34 ssh -A -t "
+
+# downloads
+alias get="python ~/.local/lib/python3.8/site-packages/gallery_get.py "
 
 # Color LS
 colorflag="-G"
@@ -187,6 +193,8 @@ alias gpu='git pull'
 
 # Fix an issue with pyton bombing out when using WinRM
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# eval "$(starship init zsh)"
 
 # init z! (https://github.com/rupa/z)
 . ~/.dotfiles/z.sh
