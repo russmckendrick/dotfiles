@@ -153,7 +153,8 @@ alias sshm="ssh -A -t russ.mckendrick@10.200.106.34 ssh -A -t "
 alias sshmhome="ssh -i ~/.ssh/id_rsa.work -A -t russ.mckendrick@10.200.106.34 ssh -A -t "
 
 # downloads
-alias get="python ~/.local/lib/python3.8/site-packages/gallery_get.py "
+alias dlc="youtube-dl --cookies cookies.txt "
+
 
 # Color LS
 colorflag="-G"
