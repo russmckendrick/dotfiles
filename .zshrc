@@ -69,7 +69,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git ansible docker osx)
+plugins=(git ansible docker osx web-search)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -102,6 +102,9 @@ DEFAULT_USER=`whoami`
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Some defaults and paths
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH=${0:A:h}/bin:$PATH
 export PATH=/usr/local/bin:~/.local/lib/aws/bin:/usr/local/sbin:~/.local/bin:$PATH
 export PATH=/usr/local/opt/ruby/bin:$PATH
 export GEM_HOME=$HOME/gems
@@ -112,6 +115,9 @@ export ANSIBLE_SSH_CONTROL_PATH='/tmp/%%h-%%p-%%r'
 export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_LOG_PATH="~/.local/ansible.log"
 export ANSIBLE_REMOTE_TMP="/tmp"
+export CLOUDSDK_PYTHON="$(brew --prefix)/opt/python@3.8/libexec/bin/python"
+source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
@@ -154,7 +160,6 @@ alias sshmhome="ssh -i ~/.ssh/id_rsa.work -A -t russ.mckendrick@10.200.106.34 ss
 
 # downloads
 alias dlc="youtube-dl --cookies cookies.txt "
-
 
 # Color LS
 colorflag="-G"
@@ -199,3 +204,4 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # init z! (https://github.com/rupa/z)
 . ~/.dotfiles/z.sh
+eval $(thefuck --alias)
