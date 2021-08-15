@@ -69,11 +69,11 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git ansible docker osx web-search terraform vscode gh)
+plugins=(git ansible docker osx terraform vscode gh httpie history)
 
 source $ZSH/oh-my-zsh.sh
 
-DEFAULT_USER=`whoami` 
+DEFAULT_USER=$(whoami)
 
 # User configuration
 
@@ -136,7 +136,7 @@ alias v='code '
 
 # Run SSH Add for the session
 if [ -f ~/.ssh/id_rsa ]; then
-    ssh-add -K ~/.ssh/id_rsa 2>/dev/null
+  ssh-add -K ~/.ssh/id_rsa 2>/dev/null
 fi
 
 # add an alias for drawio
@@ -152,7 +152,7 @@ alias tfa="terraform apply -auto-approve"
 alias tfd="terraform destroy"
 
 # add some init lines
-function initans { mkdir "$1" "$1/group_vars" "$1/roles" "$1/inv" && touch "$1/group_vars/common.yml" "$1/inv/production" "$1/README.md" "$1/site.yml" "$1/Vagrantfile" "$1/.gitignore" "$1/roles/.gitkeep" && echo "*.retry \ngroup_vars/dyn*" > "$1/.gitignore" && echo "# $1" > "$1/README.md"  && code "$1"; }
+function initans { mkdir "$1" "$1/group_vars" "$1/roles" "$1/inv" && touch "$1/group_vars/common.yml" "$1/inv/production" "$1/README.md" "$1/site.yml" "$1/Vagrantfile" "$1/.gitignore" "$1/roles/.gitkeep" && echo "*.retry \ngroup_vars/dyn*" >"$1/.gitignore" && echo "# $1" >"$1/README.md" && code "$1"; }
 alias initter=""
 
 # alias to jump around work servers, work from a work machine and home from home :)
@@ -168,8 +168,8 @@ alias dlc="youtube-dl --cookies cookies.txt "
 # Color LS
 colorflag="-G"
 alias ls="command ls ${colorflag}"
-alias l="ls -lF ${colorflag}" # all files, in long format
-alias la="ls -laF ${colorflag}" # all files inc dotfiles, in long format
+alias l="ls -lF ${colorflag}"               # all files, in long format
+alias la="ls -laF ${colorflag}"             # all files inc dotfiles, in long format
 alias lsd='ls -lF ${colorflag} | grep "^d"' # only directories
 alias lr="ls -ltr ${colorflag}"
 alias lra="ls -ltrA ${colorflag}"
