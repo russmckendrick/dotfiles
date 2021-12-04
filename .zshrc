@@ -69,7 +69,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git ansible docker osx terraform vscode gh httpie history)
+plugins=(git ansible docker macos terraform vscode gh httpie history)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -101,15 +101,17 @@ DEFAULT_USER=$(whoami)
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Multiple Homebrews on Apple Silicon
+alias brow='arch --x86_64 /usr/local/Homebrew/bin/brew'
+path=('/opt/homebrew/bin' $path)
+export PATH
+
 # Some defaults and paths
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH=${0:A:h}/bin:$PATH
-export PATH=/usr/local/bin:~/.local/lib/aws/bin:/usr/local/sbin:~/.local/bin:$PATH
-export PATH=/usr/local/opt/ruby/bin:$PATH
 export GEM_HOME=$HOME/gems
 export PATH=$HOME/gems/bin:$PATH
-export PATH=/usr/local/go/bin:$PATH
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export ANSIBLE_SSH_CONTROL_PATH='/tmp/%%h-%%p-%%r'
 export ANSIBLE_HOST_KEY_CHECKING=False
