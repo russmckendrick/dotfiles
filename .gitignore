@@ -5,6 +5,7 @@ backups/.bash_profile
 backups/.bashrc
 backups/.gitconfig
 backups/.zshrc
+.gitconfig
 
 # Compiled Source
 ######################
@@ -39,3 +40,4 @@ Thumbs.db
 .sass-cache/
 .codekit-config.json
 config.codekit
+

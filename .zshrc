@@ -44,6 +44,95 @@ fi
 
 alias dlc=" yt-dlp --cookies-from-browser chrome " # downloads
 
+function vidjoin() {
+    # Check if an argument is provided
+    if [ "$#" -eq 0 ]; then
+        # Prompt for file prefix if not provided
+        read "file_prefix?Enter file prefix: "
+    else
+        file_prefix=$1
+    fi
+
+    output_name="${file_prefix}.mp4"
+    (for f in "${file_prefix}"*.mp4; do
+        # Exclude the output file from the file list
+        if [[ "$f" != "$output_name" ]]; then
+            echo "file '$f'"
+        fi
+    done) > temp_filelist.txt
+    ffmpeg -f concat -safe 0 -i temp_filelist.txt -c copy "$output_name"
+    rm temp_filelist.txt
+
+    # Display the names of the files to be deleted
+    echo "The following files will be deleted:"
+    for f in "${file_prefix}"*.mp4; do
+        # Exclude the output file from the deletion list
+        if [[ "$f" != "$output_name" ]]; then
+            echo "$f"
+        fi
+    done
+
+    # Ask for confirmation before deleting the source files
+    read -q "REPLY?Do you want to delete the original files? (y/n) "
+    echo    # Move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        for f in "${file_prefix}"*.mp4; do
+            # Exclude the output file when deleting
+            if [[ "$f" != "$output_name" ]]; then
+                rm "$f"
+            fi
+        done
+    fi
+}
+
+function vidpro() {
+    # Check if an argument is provided
+    if [ "$#" -eq 0 ]; then
+        echo "No file specified. Usage: process_videos 'filename.mp4'"
+        return 1
+    fi
+
+    # Assign the first argument to 'file'
+    file=$1
+
+    # Check if the file exists
+    if [ ! -f "$file" ]; then
+        echo "File not found: $file"
+        return 1
+    fi
+
+    # Construct the output file name by appending '-pro' before the '.mp4' extension
+    output_file="${file/%.mp4/-pro.mp4}"
+
+    # Use ffmpeg to copy video and audio streams to the new file
+    ffmpeg -i "$file" -vcodec copy -acodec copy "$output_file"
+
+    # Optional: Check if the conversion was successful and print a message
+    if [ $? -eq 0 ]; then
+        echo "Processed: $output_file"
+        
+        # Ask the user if they want to remove the original file or rename it
+        echo "Do you want to remove the original file? (y/N)"
+        read -r remove_original
+
+        if [[ $remove_original =~ ^[Yy]$ ]]; then
+            # Remove the original file
+            rm "$file"
+            echo "Original file removed: $file"
+        else
+            # Rename the original file by appending '-raw' before the '.mp4' extension
+            raw_file="${file/%.mp4/-raw.mp4}"
+            mv "$file" "$raw_file"
+            echo "Original file renamed to: $raw_file"
+        fi
+    else
+        echo "Failed to process: $file"
+        return 1
+    fi
+}
+
+
+
 # Hugo
 alias blog="cd ~/Code/blog/ && hugo server --buildDrafts"
 alias eblog="code ~/Code/blog/"
@@ -109,23 +198,6 @@ alias gpu='git pull'
 
 # Fix an issue with pyton bombing out when using WinRM
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-
-# eval "$(starship init zsh)"
-
-# # >>> conda initialize >>>
-# # !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-#         . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
-# # <<< conda initialize <<<
 
 # init z! (https://github.com/rupa/z)
 . ~/.dotfiles/z.sh
