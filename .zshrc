@@ -146,6 +146,7 @@ function vidpro() {
 # Hugo
 alias blog="cd ~/Code/blog/ && hugo server --buildDrafts --buildFuture"
 alias eblog="code ~/Code/blog/"
+alias imgmeta='for file in *; do [[ -f "$file" && ! -f "${file%.*}.meta" ]] && echo "{\n\"Title\": \"${file%.*}\"\n}" > "${file}.meta"; done'
 
 # add an alias for drawio
 alias draw.io='/Applications/draw.io.app/Contents/MacOS/draw.io'
@@ -187,7 +188,7 @@ alias .....="cd ../../../.."
 alias tree="tree -I '.git'"
 
 # Shortcuts to my Code folder in my home directory
-alias cod="cd ~/Documents/Code/"
+alias cod="cd ~/Code/"
 alias dt="cd ~/.dotfiles/"
 
 # Enable aliases to be sudo’ed
