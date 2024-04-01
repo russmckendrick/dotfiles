@@ -1,9 +1,16 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/russ.mckendrick/.oh-my-zsh"
-ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git ansible docker macos terraform vscode gh)
 source $ZSH/oh-my-zsh.sh
 DEFAULT_USER=$(whoami)
@@ -36,6 +43,9 @@ alias python=/usr/bin/python3
 ### Aliases
 alias s='open -a "Sublime Text"'
 alias v='code '
+
+# Ansible lint short cut
+alias al='ansible-lint -c ~/.config/ansible-lint.yml'
 
 # Run SSH Add for the session
 if [ -f ~/.ssh/id_rsa ]; then
@@ -134,7 +144,7 @@ function vidpro() {
 
 
 # Hugo
-alias blog="cd ~/Code/blog/ && hugo server --buildDrafts"
+alias blog="cd ~/Code/blog/ && hugo server --buildDrafts --buildFuture"
 alias eblog="code ~/Code/blog/"
 
 # add an alias for drawio
@@ -198,6 +208,25 @@ alias gpu='git pull'
 
 # Fix an issue with pyton bombing out when using WinRM
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.dotfiles/.p10k.zsh ]] || source ~/.dotfiles/.p10k.zsh
+
 
 # init z! (https://github.com/rupa/z)
 . ~/.dotfiles/z.sh

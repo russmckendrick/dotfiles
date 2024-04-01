@@ -27,7 +27,7 @@ ln -s ~/.dotfiles/starship.toml ~/.config/starship.toml
 
 **Faster directory navigation**
 
-- `v .`, `s .`, `a .` or `v filename.txt` will open your current directory or a file in SublimeText
+- `v .`, `s .`, `a .` or `v filename.txt` will open your current directory or a file in VS Code
 - Jump directories rapidly, without having to set aliases using [Z](https://github.com/rupa/z)
 - Tab bar displays your current directory
 - Lots of quick shortcut aliases used for git and moving around directories
