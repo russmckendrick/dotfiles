@@ -1,11 +1,9 @@
 # Custom Stuff
 ######################
 
-backups/.bash_profile
-backups/.bashrc
-backups/.gitconfig
+backups/.zprofile 
 backups/.zshrc
-.gitconfig
+backups/.gitconfig
 
 # Compiled Source
 ######################

@@ -1,0 +1,11 @@
+[core]
+	excludesfile = ~/.dotfiles/.gitignore
+	whitespace = space-before-tab,indent-with-non-tab,trailing-space
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = Russ McKendrick
+	email = github@mckendrick.email
