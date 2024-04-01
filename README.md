@@ -5,7 +5,7 @@
 ## Installation
 
 See the following blog posts
- - https://www.russ.foo/2014/08/10/dotfiles/ (from 2024)
+ - https://www.russ.foo/2014/08/10/dotfiles/ (from 2014)
 
 ## Bashstrap
 
