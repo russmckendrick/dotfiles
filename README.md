@@ -6,6 +6,7 @@
 
 See the following blog posts
  - https://www.russ.foo/2014/08/10/dotfiles/ (from 2014)
+ - https://www.russ.foo/2024/04/02/updating-my-dotfiles/ (from 2024)
 
 ## See it action
 
