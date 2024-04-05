@@ -186,3 +186,9 @@ function vidpro() {
 
 # init z! (https://github.com/rupa/z)
 . ~/.dotfiles/z.sh
+# bun completions
+[ -s "/Users/russ.mckendrick/.bun/_bun" ] && source "/Users/russ.mckendrick/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
