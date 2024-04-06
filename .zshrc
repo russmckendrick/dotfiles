@@ -28,9 +28,17 @@ if command -v thefuck 1>/dev/null 2>&1; then
   eval $(thefuck --alias)
 fi
 
-### Aliases
+# Aliases
 alias s='open -a "Sublime Text"'
 alias v='code '
+
+# Python
+alias pip='python -m pip'
+
+# Conda
+alias cbase='conda activate base'
+alias cdiscogs='conda activate discogs'
+alias cansible='conda activate ansible'
 
 # Run SSH Add for the session
 if [ -f ~/.ssh/id_rsa ]; then
@@ -42,11 +50,11 @@ alias blog="cd ~/Code/blog/ && hugo server --buildDrafts --buildFuture"
 alias eblog="code ~/Code/blog/"
 alias imgmeta='for file in *; do [[ -f "$file" && ! -f "${file%.*}.meta" ]] && echo "{\n\"Title\": \"${file%.*}\"\n}" > "${file}.meta"; done'
 
-# add an alias and bits for some common ansible tasks
+# Add an alias and bits for some common ansible tasks
 alias al='ansible-lint -c ~/.config/ansible-lint.yml'
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
-# add an alias and bits for some common terraform tasks
+# Add an alias and bits for some common terraform tasks
 alias tfrm="rm -rf .terraform *.tfstate*"
 alias tfi="terraform init"
 alias tfa="terraform apply -auto-approve"
@@ -184,11 +192,12 @@ function vidpro() {
     fi
 }
 
-# init z! (https://github.com/rupa/z)
-. ~/.dotfiles/z.sh
 # bun completions
 [ -s "/Users/russ.mckendrick/.bun/_bun" ] && source "/Users/russ.mckendrick/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# init z! (https://github.com/rupa/z)
+. ~/.dotfiles/z.sh
