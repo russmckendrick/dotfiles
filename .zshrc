@@ -47,8 +47,8 @@ fi
 
 # Hugo
 alias blog="cd ~/Code/blog/ && hugo server --buildDrafts --buildFuture"
-alias eblog="code ~/Code/blog/"
-alias imgmeta='for file in *; do [[ -f "$file" && ! -f "${file%.*}.meta" ]] && echo "{\n\"Title\": \"${file%.*}\"\n}" > "${file}.meta"; done'
+alias bloge="code ~/Code/blog/"
+alias blogimg='for file in *; do [[ -f "$file" && ! -f "${file%.*}.meta" ]] && echo "{\n\"Title\": \"${file%.*}\"\n}" > "${file}.meta"; done'
 
 # Add an alias and bits for some common ansible tasks
 alias al='ansible-lint -c ~/.config/ansible-lint.yml'
