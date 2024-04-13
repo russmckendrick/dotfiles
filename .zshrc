@@ -8,7 +8,7 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/russ.mckendrick/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(git ansible docker macos terraform vscode gh)
+plugins=(git ansible docker macos terraform vscode gh brew)
 source $ZSH/oh-my-zsh.sh
 DEFAULT_USER=$(whoami)
 
