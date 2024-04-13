@@ -117,7 +117,7 @@ unset __conda_setup
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.dotfiles/.p10k.zsh ]] || source ~/.dotfiles/.p10k.zsh
 
-# Downloads and vidoe stuff
+# Downloads and video stuff
 alias dlc=" yt-dlp --cookies-from-browser chrome "
 
 function vidjoin() {
@@ -199,5 +199,5 @@ function vidpro() {
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# init z! (https://github.com/rupa/z)
-. ~/.dotfiles/z.sh
+# init zoxide (https://github.com/ajeetdsouza/zoxide)
+eval "$(zoxide init zsh)"
