@@ -24,8 +24,20 @@ export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_LOG_PATH="~/.local/ansible.log"
 export ANSIBLE_REMOTE_TMP="/tmp"
 
+
+# init the fuck!!! (https://github.com/nvbn/thefuck)
 if command -v thefuck 1>/dev/null 2>&1; then
   eval $(thefuck --alias)
+fi
+
+# init zoxide (https://github.com/ajeetdsouza/zoxide)
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
+# init gh copilot (https://docs.github.com/en/copilot/github-copilot-in-the-cli/using-github-copilot-in-the-cli)
+if command -v gh &> /dev/null; then
+  eval "$(gh copilot alias -- zsh)";
 fi
 
 # Aliases
@@ -199,5 +211,3 @@ function vidpro() {
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# init zoxide (https://github.com/ajeetdsouza/zoxide)
-eval "$(zoxide init zsh)"
