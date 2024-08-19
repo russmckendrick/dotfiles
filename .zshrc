@@ -24,7 +24,6 @@ export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_LOG_PATH="~/.local/ansible.log"
 export ANSIBLE_REMOTE_TMP="/tmp"
 
-
 # init the fuck!!! (https://github.com/nvbn/thefuck)
 if command -v thefuck 1>/dev/null 2>&1; then
   eval $(thefuck --alias)
@@ -211,3 +210,10 @@ function vidpro() {
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+# Ignore VS Code related Python commands
+HISTORY_IGNORE+="|(python3\.?([0-9]+)?.*/.vscode/extensions/.*)"
+
+# Set history options
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
