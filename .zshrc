@@ -211,7 +211,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Ignore VS Code related Python commands
-HISTORY_IGNORE+="|(python3\.?([0-9]+)?.*/.vscode/extensions/.*)"
+HISTORY_IGNORE+="|(.*/\.vscode/extensions/.*)"
 
 # Set history options
 setopt HIST_IGNORE_SPACE
