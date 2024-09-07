@@ -3,8 +3,8 @@
 # Backup the original history file
 cp ~/.zsh_history ~/.zsh_history_backup
 
-# Remove lines containing .vscode/extensions
-grep -v '\.vscode/extensions/' ~/.zsh_history > ~/.zsh_history_temp
+# Remove lines containing .vscode/extensions and vidjoin commands
+grep -Ev '\.vscode/extensions/|^:[^;]*;vidjoin ' ~/.zsh_history > ~/.zsh_history_temp
 
 # Move the cleaned history file back
 mv ~/.zsh_history_temp ~/.zsh_history
