@@ -210,12 +210,13 @@ function vidpro() {
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# Ignore VS Code related Python commands
-HISTORY_IGNORE="(|(*/.vscode/extensions/*))"
+# Ignore VS Code related Python commands and vidjoin commands
+HISTORY_IGNORE="(|(*/.vscode/extensions/*)|(vidjoin *))"
 
+# Optional: Use zshaddhistory function for more precise control
 zshaddhistory() {
   emulate -L zsh
-  [[ $1 != *(/.vscode/extensions/)* ]]
+  [[ $1 != *(/.vscode/extensions/)* && $1 != vidjoin* ]]
 }
 
 # Set history options
