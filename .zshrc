@@ -23,6 +23,7 @@ export ANSIBLE_SSH_CONTROL_PATH='/tmp/%%h-%%p-%%r'
 export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_LOG_PATH="~/.local/ansible.log"
 export ANSIBLE_REMOTE_TMP="/tmp"
+export NODE_NO_WARNINGS=1
 
 # init the fuck!!! (https://github.com/nvbn/thefuck)
 if command -v thefuck 1>/dev/null 2>&1; then
