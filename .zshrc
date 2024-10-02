@@ -51,6 +51,7 @@ alias pip='python -m pip'
 alias cbase='conda activate base'
 alias cdiscogs='conda activate discogs'
 alias cansible='conda activate ansible'
+alias openwebui='cd ~/ && conda activate openwebui && open-webui serve'
 
 # Run SSH Add for the session
 if [ -f ~/.ssh/id_rsa ]; then
