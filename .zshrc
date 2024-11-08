@@ -36,9 +36,9 @@ if command -v zoxide &> /dev/null; then
 fi
 
 # init gh copilot (https://docs.github.com/en/copilot/github-copilot-in-the-cli/using-github-copilot-in-the-cli)
-if command -v gh &> /dev/null; then
-  eval "$(gh copilot alias -- zsh)";
-fi
+# if command -v gh &> /dev/null; then
+#   eval "$(gh copilot alias -- zsh)";
+# fi
 
 # Aliases
 alias s='open -a "Sublime Text"'
