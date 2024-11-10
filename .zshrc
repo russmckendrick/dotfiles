@@ -53,6 +53,8 @@ alias cdiscogs='conda activate discogs'
 alias cansible='conda activate ansible'
 alias openwebui='cd ~/ && conda activate openwebui && open-webui serve'
 
+# 
+
 # Run SSH Add for the session
 if [ -f ~/.ssh/id_rsa ]; then
   ssh-add -K ~/.ssh/id_rsa 2>/dev/null
@@ -129,6 +131,14 @@ unset __conda_setup
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.dotfiles/.p10k.zsh ]] || source ~/.dotfiles/.p10k.zsh
+
+# Function to generate my discogs collection
+function scrape() {
+    cd ~/Code/discogs/
+    conda activate discogs
+    python discogs_scraper.py --all --delay=0
+    conda deactivate
+}
 
 # Downloads and video stuff
 alias dlc=" yt-dlp --cookies-from-browser chrome "
