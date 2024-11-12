@@ -35,25 +35,14 @@ if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh)"
 fi
 
-# init gh copilot (https://docs.github.com/en/copilot/github-copilot-in-the-cli/using-github-copilot-in-the-cli)
-# if command -v gh &> /dev/null; then
-#   eval "$(gh copilot alias -- zsh)";
-# fi
-
 # Aliases
+
+# IDEs
 alias s='open -a "Sublime Text"'
 alias v='code '
 
 # Python
 alias pip='python -m pip'
-
-# Conda
-alias cbase='conda activate base'
-alias cdiscogs='conda activate discogs'
-alias cansible='conda activate ansible'
-alias openwebui='cd ~/ && conda activate openwebui && open-webui serve'
-
-# 
 
 # Run SSH Add for the session
 if [ -f ~/.ssh/id_rsa ]; then
@@ -114,6 +103,9 @@ alias gpu='git pull'
 # add an alias for drawio
 alias draw.io='/Applications/draw.io.app/Contents/MacOS/draw.io'
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.dotfiles/.p10k.zsh ]] || source ~/.dotfiles/.p10k.zsh
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -129,8 +121,43 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.dotfiles/.p10k.zsh ]] || source ~/.dotfiles/.p10k.zsh
+# Conda Select function with colors and styling
+function cs() {
+    # Colors and formatting
+    local BLUE='\033[0;34m'
+    local GREEN='\033[0;32m'
+    local YELLOW='\033[1;33m'
+    local CYAN='\033[0;36m'
+    local BOLD='\033[1m'
+    local NC='\033[0m' # No Color
+    
+    # Get list of conda environments
+    local environments=($(conda env list | grep -v '^#' | awk '{print $1}' | grep -v '^$'))
+    
+    # Print header with styling
+    echo "\n${BOLD}${BLUE}🐍 Available Conda Environments:${NC}\n"
+    
+    # Print environments with numbers and colors
+    for i in {1..${#environments[@]}}; do
+        if [ "${environments[$i]}" = "base" ]; then
+            echo "  ${YELLOW}$i)${NC} ${CYAN}${environments[$i]}${NC} ${GREEN}(base)${NC}"
+        else
+            echo "  ${YELLOW}$i)${NC} ${CYAN}${environments[$i]}${NC}"
+        fi
+    done
+    
+    # Get user selection with styled prompt
+    echo "\n${BOLD}${BLUE}Enter environment number (${GREEN}1-${#environments[@]}${BLUE}):${NC} "
+    read selection
+    
+    # Validate input
+    if [[ "$selection" =~ ^[0-9]+$ ]] && [ "$selection" -ge 1 ] && [ "$selection" -le "${#environments[@]}" ]; then
+        echo "${GREEN}✓ Activating ${CYAN}${environments[$selection]}${GREEN} environment...${NC}"
+        conda activate "${environments[$selection]}"
+    else
+        echo "${YELLOW}⚠️  Invalid selection${NC}"
+    fi
+}
 
 # Function to generate my discogs collection
 function scrape() {
