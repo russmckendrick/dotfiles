@@ -9,3 +9,5 @@
 [user]
 	name = Russ McKendrick
 	email = github@mckendrick.email
+[init]
+	defaultBranch = main
