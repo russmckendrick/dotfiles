@@ -238,19 +238,8 @@ function vidjoin() {
     temp_filelist="$temp_dir/filelist.txt"
     : > "$temp_filelist"
     
-    # First check for .ts files
-    if ls ${file_prefix}*.ts >/dev/null 2>&1; then
-        echo "Debug: Found .ts files - copying to temp directory..."
-        for f in ${file_prefix}*.ts; do
-            if [[ -f "$f" ]]; then
-                cp "$f" "$temp_dir/"
-                echo "file '$(basename "$f")'" >> "$temp_filelist"
-                echo "Debug: Copied $f"
-            fi
-        done
-        output_ext="ts"
-    # Then check for .mp4 files if no .ts files found
-    elif ls ${file_prefix}*.mp4 >/dev/null 2>&1; then
+    # Check for .mp4 files
+    if ls ${file_prefix}*.mp4 >/dev/null 2>&1; then
         echo "Debug: Found .mp4 files - copying to temp directory..."
         for f in ${file_prefix}*.mp4; do
             if [[ -f "$f" ]]; then
@@ -259,14 +248,13 @@ function vidjoin() {
                 echo "Debug: Copied $f"
             fi
         done
-        output_ext="mp4"
     else
-        echo "No matching files found for ${file_prefix}"
+        echo "No matching MP4 files found for ${file_prefix}"
         rm -rf "$temp_dir"
         return 1
     fi
     
-    output_name="${file_prefix}.${output_ext}"
+    output_name="${file_prefix}.mp4"
     temp_output="$temp_dir/$output_name"
     echo "Debug: Output will be: $output_name"
     
@@ -275,45 +263,62 @@ function vidjoin() {
     
     # Run ffmpeg concat if we have files
     if [[ -s "$temp_filelist" ]]; then
-        ffmpeg -f concat -safe 0 -i "$temp_filelist" -c copy "$output_name"
-        ffmpeg_status=$?
-        popd > /dev/null
+        # First concatenate to intermediate format
+        echo "Step 1: Converting to intermediate format..."
+        ffmpeg -f concat -safe 0 -i "$temp_filelist" \
+               -c copy \
+               -f mpegts \
+               "$temp_dir/intermediate.ts"
         
-        if [ $ffmpeg_status -eq 0 ]; then
-            # Copy the result back and verify
-            cp "$temp_dir/$output_name" "./$output_name"
-            if [ $? -eq 0 ] && [ -f "./$output_name" ]; then
-                echo "Successfully created $output_name"
-            
-                echo "The following files will be deleted:"
-                for f in ${file_prefix}*.${output_ext}; do
-                    if [[ "$f" != "$output_name" ]]; then
-                        echo "$f"
-                    fi
-                done
-                
-                read -q "REPLY?Do you want to delete the original files? (y/n) "
-                echo
-                if [[ $REPLY =~ ^[Yy]$ ]]; then
-                    for f in ${file_prefix}*.${output_ext}; do
-                        if [[ "$f" != "$output_name" ]]; then
-                            rm "$f"
-                        fi
-                    done
-                fi
-            else
-                echo "Error: Failed to copy output file back to current directory"
-                rm -rf "$temp_dir"
-                return 1
-            fi
+        if [ $? -eq 0 ]; then
+            echo "Step 2: Creating final MP4..."
+            # Then convert back to MP4 with proper container
+            ffmpeg -i "$temp_dir/intermediate.ts" \
+                   -c copy \
+                   -movflags +faststart \
+                   "$output_name"
+            ffmpeg_status=$?
         else
-            echo "Error: ffmpeg failed to process files"
-            rm -rf "$temp_dir"
-            return 1
+            ffmpeg_status=1
         fi
     else
         echo "Error: No files were added to the list"
         popd > /dev/null
+        rm -rf "$temp_dir"
+        return 1
+    fi
+    
+    # Cleanup only after successful operation
+    popd > /dev/null
+    if [ $ffmpeg_status -eq 0 ]; then
+        # Copy the result back and verify
+        cp "$temp_dir/$output_name" "./$output_name"
+        if [ $? -eq 0 ] && [ -f "./$output_name" ]; then
+            echo "Successfully created $output_name"
+        
+            echo "The following files will be deleted:"
+            for f in ${file_prefix}*.mp4; do
+                if [[ "$f" != "$output_name" ]]; then
+                    echo "$f"
+                fi
+            done
+                
+            read -q "REPLY?Do you want to delete the original files? (y/n) "
+            echo
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                for f in ${file_prefix}*.mp4; do
+                    if [[ "$f" != "$output_name" ]]; then
+                        rm "$f"
+                    fi
+                done
+            fi
+        else
+            echo "Error: Failed to copy output file back to current directory"
+            rm -rf "$temp_dir"
+            return 1
+        fi
+    else
+        echo "Error: ffmpeg failed to process files"
         rm -rf "$temp_dir"
         return 1
     fi
