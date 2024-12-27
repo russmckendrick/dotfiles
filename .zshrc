@@ -174,35 +174,100 @@ function vidjoin() {
     if [ "$#" -eq 0 ]; then
         read "file_prefix?Enter file prefix: "
     else
-        file_prefix=$1
+        file_prefix="$1"
     fi
 
-    output_name="${file_prefix}.mp4"
-    (for f in "${file_prefix}"*.mp4; do
-        if [[ "$f" != "$output_name" ]]; then
-            echo "file '$f'"
-        fi
-    done) > temp_filelist.txt
-    ffmpeg -f concat -safe 0 -i temp_filelist.txt -c copy "$output_name"
-    rm temp_filelist.txt
-
-    echo "The following files will be deleted:"
-    for f in "${file_prefix}"*.mp4; do
-        if [[ "$f" != "$output_name" ]]; then
-            echo "$f"
-        fi
-    done
-
-    read -q "REPLY?Do you want to delete the original files? (y/n) "
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        for f in "${file_prefix}"*.mp4; do
-            # Exclude the output file when deleting
-            if [[ "$f" != "$output_name" ]]; then
-                rm "$f"
+    # Create a temporary working directory
+    temp_dir="/tmp/vidjoin_$$"
+    mkdir -p "$temp_dir"
+    echo "Debug: Working in temporary directory: $temp_dir"
+    
+    # Create temp file list
+    temp_filelist="$temp_dir/filelist.txt"
+    : > "$temp_filelist"
+    
+    # First check for .ts files
+    if ls ${file_prefix}*.ts >/dev/null 2>&1; then
+        echo "Debug: Found .ts files - copying to temp directory..."
+        for f in ${file_prefix}*.ts; do
+            if [[ -f "$f" ]]; then
+                cp "$f" "$temp_dir/"
+                echo "file '$(basename "$f")'" >> "$temp_filelist"
+                echo "Debug: Copied $f"
             fi
         done
+        output_ext="ts"
+    # Then check for .mp4 files if no .ts files found
+    elif ls ${file_prefix}*.mp4 >/dev/null 2>&1; then
+        echo "Debug: Found .mp4 files - copying to temp directory..."
+        for f in ${file_prefix}*.mp4; do
+            if [[ -f "$f" ]]; then
+                cp "$f" "$temp_dir/"
+                echo "file '$(basename "$f")'" >> "$temp_filelist"
+                echo "Debug: Copied $f"
+            fi
+        done
+        output_ext="mp4"
+    else
+        echo "No matching files found for ${file_prefix}"
+        rm -rf "$temp_dir"
+        return 1
     fi
+    
+    output_name="${file_prefix}.${output_ext}"
+    temp_output="$temp_dir/$output_name"
+    echo "Debug: Output will be: $output_name"
+    
+    # Change to temp directory for processing
+    pushd "$temp_dir" > /dev/null
+    
+    # Run ffmpeg concat if we have files
+    if [[ -s "$temp_filelist" ]]; then
+        ffmpeg -f concat -safe 0 -i "$temp_filelist" -c copy "$output_name"
+        ffmpeg_status=$?
+        popd > /dev/null
+        
+        if [ $ffmpeg_status -eq 0 ]; then
+            # Copy the result back and verify
+            cp "$temp_dir/$output_name" "./$output_name"
+            if [ $? -eq 0 ] && [ -f "./$output_name" ]; then
+                echo "Successfully created $output_name"
+            
+                echo "The following files will be deleted:"
+                for f in ${file_prefix}*.${output_ext}; do
+                    if [[ "$f" != "$output_name" ]]; then
+                        echo "$f"
+                    fi
+                done
+                
+                read -q "REPLY?Do you want to delete the original files? (y/n) "
+                echo
+                if [[ $REPLY =~ ^[Yy]$ ]]; then
+                    for f in ${file_prefix}*.${output_ext}; do
+                        if [[ "$f" != "$output_name" ]]; then
+                            rm "$f"
+                        fi
+                    done
+                fi
+            else
+                echo "Error: Failed to copy output file back to current directory"
+                rm -rf "$temp_dir"
+                return 1
+            fi
+        else
+            echo "Error: ffmpeg failed to process files"
+            rm -rf "$temp_dir"
+            return 1
+        fi
+    else
+        echo "Error: No files were added to the list"
+        popd > /dev/null
+        rm -rf "$temp_dir"
+        return 1
+    fi
+    
+    # Cleanup only after successful operation
+    rm -rf "$temp_dir"
 }
 
 function vidpro() {
@@ -262,3 +327,5 @@ zshaddhistory() {
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
+# Added by Windsurf
+export PATH="/Users/russ.mckendrick/.codeium/windsurf/bin:$PATH"
