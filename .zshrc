@@ -159,6 +159,58 @@ function cs() {
     fi
 }
 
+function csrm() {
+    # Colors and formatting
+    local RED='\033[0;31m'
+    local BLUE='\033[0;34m'
+    local GREEN='\033[0;32m'
+    local YELLOW='\033[1;33m'
+    local CYAN='\033[0;36m'
+    local BOLD='\033[1m'
+    local NC='\033[0m' # No Color
+    
+    # Get list of conda environments
+    local environments=($(conda env list | grep -v '^#' | awk '{print $1}' | grep -v '^$'))
+    
+    # Print header with styling
+    echo "\n${BOLD}${RED}🗑️  Conda Environment Removal Tool${NC}\n"
+    
+    # Print environments with numbers and colors
+    for i in {1..${#environments[@]}}; do
+        if [ "${environments[$i]}" = "base" ]; then
+            echo "  ${YELLOW}$i)${NC} ${CYAN}${environments[$i]}${NC} ${GREEN}(base)${NC} ⚠️  ${RED}Cannot be removed${NC}"
+        else
+            echo "  ${YELLOW}$i)${NC} ${CYAN}${environments[$i]}${NC}"
+        fi
+    done
+    
+    # Get user selection with styled prompt
+    echo "\n${BOLD}${RED}⚠️  Enter environment number to remove (${YELLOW}1-${#environments[@]}${RED}):${NC} "
+    read selection
+    
+    # Validate input and handle base environment
+    if [[ "$selection" =~ ^[0-9]+$ ]] && [ "$selection" -ge 1 ] && [ "$selection" -le "${#environments[@]}" ]; then
+        if [ "${environments[$selection]}" = "base" ]; then
+            echo "${RED}❌ Cannot remove base environment!${NC}"
+            return 1
+        fi
+        
+        echo "${RED}⚠️  WARNING: This will permanently delete the environment '${CYAN}${environments[$selection]}${RED}'${NC}"
+        echo "${YELLOW}🤔 Are you sure? (y/N):${NC} "
+        read confirm
+        
+        if [[ "$confirm" =~ ^[Yy]$ ]]; then
+            echo "${YELLOW}🚮 Removing ${CYAN}${environments[$selection]}${YELLOW} environment...${NC}"
+            conda env remove --name "${environments[$selection]}"
+            echo "${GREEN}✅ Environment removed successfully!${NC}"
+        else
+            echo "${BLUE}💡 Operation cancelled${NC}"
+        fi
+    else
+        echo "${RED}❌ Invalid selection${NC}"
+    fi
+}
+
 # Function to generate my discogs collection
 function scrape() {
     cd ~/Code/discogs/
