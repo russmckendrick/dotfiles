@@ -41,6 +41,9 @@ fi
 alias s='open -a "Sublime Text"'
 alias v='code '
 
+# Added by Windsurf
+export PATH="~/.codeium/windsurf/bin:$PATH"
+
 # Python
 alias pip='python -m pip'
 
@@ -384,5 +387,3 @@ zshaddhistory() {
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
-# Added by Windsurf
-export PATH="/Users/russ.mckendrick/.codeium/windsurf/bin:$PATH"
