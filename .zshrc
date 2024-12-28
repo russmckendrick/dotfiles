@@ -39,6 +39,7 @@ fi
 # 💻 IDE and Editor Aliases
 alias s='open -a "Sublime Text"'
 alias v='code '
+export PATH="/Users/russ.mckendrick/.codeium/windsurf/bin:$PATH"
 
 # 🐍 Python Configuration
 alias pip='python -m pip'
