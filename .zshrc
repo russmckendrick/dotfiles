@@ -1,18 +1,19 @@
+# 🚀 Powerlevel10k Instant Prompt
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
+# 🏠 Oh My Zsh Configuration
+# Path to oh-my-zsh installation and theme selection
 export ZSH="/Users/russ.mckendrick/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git ansible docker macos terraform vscode gh brew)
 source $ZSH/oh-my-zsh.sh
 DEFAULT_USER=$(whoami)
 
-# Some defaults and paths
+# 🛠️ Environment Setup and Path Configuration
+# Set up various environment paths and default configurations
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH=${0:A:h}/bin:$PATH
@@ -25,49 +26,48 @@ export ANSIBLE_LOG_PATH="~/.local/ansible.log"
 export ANSIBLE_REMOTE_TMP="/tmp"
 export NODE_NO_WARNINGS=1
 
-# init the fuck!!! (https://github.com/nvbn/thefuck)
+# 🔧 Tool Initialization
+# Initialize helpful command-line tools
 if command -v thefuck 1>/dev/null 2>&1; then
   eval $(thefuck --alias)
 fi
 
-# init zoxide (https://github.com/ajeetdsouza/zoxide)
 if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh)"
 fi
 
-# Aliases
-
-# IDEs
+# 💻 IDE and Editor Aliases
 alias s='open -a "Sublime Text"'
 alias v='code '
 
-# Added by Windsurf
-export PATH="~/.codeium/windsurf/bin:$PATH"
-
-# Python
+# 🐍 Python Configuration
 alias pip='python -m pip'
 
-# Run SSH Add for the session
+# 🔑 SSH Configuration
+# Add SSH keys to the agent at startup
 if [ -f ~/.ssh/id_rsa ]; then
   ssh-add -K ~/.ssh/id_rsa 2>/dev/null
 fi
 
-# Hugo
+# 📝 Hugo Blog Aliases and Functions
 alias blog="cd ~/Code/blog/ && hugo server --buildDrafts --buildFuture"
 alias bloge="code ~/Code/blog/"
 alias blogimg='for file in *; do [[ -f "$file" && ! -f "${file%.*}.meta" ]] && echo "{\n\"Title\": \"${file%.*}\"\n}" > "${file}.meta"; done'
 
-# Add an alias and bits for some common ansible tasks
+# 🏗️ Ansible Configuration
+# Ansible-specific settings and aliases
 alias al='ansible-lint -c ~/.config/ansible-lint.yml'
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
-# Add an alias and bits for some common terraform tasks
+# ☁️ Terraform Aliases
+# Shortcuts for common Terraform commands
 alias tfrm="rm -rf .terraform *.tfstate*"
 alias tfi="terraform init"
 alias tfa="terraform apply -auto-approve"
 alias tfd="terraform destroy"
 
-# Color LS
+# 📂 File and Directory Navigation
+# Enhanced ls commands with colors
 colorflag="-G"
 alias ls="command ls ${colorflag}"
 alias l="ls -lF ${colorflag}"               # all files, in long format
@@ -76,39 +76,43 @@ alias lsd='ls -lF ${colorflag} | grep "^d"' # only directories
 alias lr="ls -ltr ${colorflag}"
 alias lra="ls -ltrA ${colorflag}"
 
-# Quicker navigation
+# 🚶 Directory Navigation Shortcuts
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias tree="tree -I '.git'"
 
-# Shortcuts to my Code folder in my home directory
+# 📁 Quick Access to Code Directories
 alias cod="cd ~/Code/"
 alias dt="cd ~/.dotfiles/"
 
-# Enable aliases to be sudo’ed
+# 🔒 System Administration
+# Sudo and system management aliases
 alias sudo='sudo '
 alias hoste='sudo code /private/etc/hosts'
 alias flush='sudo killall -HUP mDNSResponder; sleep 2;'
 
-# Colored up cat!
-# You must install Pygments first - "sudo easy_install Pygments"
+# 🎨 Syntax Highlighting
+# Enhanced cat command with syntax highlighting
 alias c='pygmentize -O style=monokai -f console256 -g'
 
-# Git aliases
+# 📦 Git Shortcuts
+# Common Git command aliases
 alias gs='git status'
 alias ga='git add .'
 alias gc='git commit -m' # requires you to type a commit message
 alias gp='git push'
 alias gpu='git pull'
 
-# add an alias for drawio
+# 📊 Draw.io Configuration
 alias draw.io='/Applications/draw.io.app/Contents/MacOS/draw.io'
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# 🎯 Powerlevel10k Theme Configuration
 [[ ! -f ~/.dotfiles/.p10k.zsh ]] || source ~/.dotfiles/.p10k.zsh
 
+# 🐍 Conda Configuration
+# Conda initialization and environment management
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -124,7 +128,16 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-# Conda Select function with colors and styling
+# 🐍 Conda Environment Management Functions
+
+# 📋 Interactive Conda Environment Selector
+# Usage: cs
+# Displays a numbered list of available conda environments
+# and allows you to select one to activate using arrow keys.
+# Features:
+# - Color-coded environment list
+# - Base environment highlighting
+# - Input validation
 function cs() {
     # Colors and formatting
     local BLUE='\033[0;34m'
@@ -162,6 +175,14 @@ function cs() {
     fi
 }
 
+# 🗑️ Interactive Conda Environment Removal Tool
+# Usage: csrm
+# Safely remove conda environments with an interactive prompt
+# Features:
+# - Color-coded environment list
+# - Base environment protection
+# - Double confirmation for safety
+# - Clear success/failure feedback
 function csrm() {
     # Colors and formatting
     local RED='\033[0;31m'
@@ -214,7 +235,12 @@ function csrm() {
     fi
 }
 
-# Function to generate my discogs collection
+# 💿 Discogs Collection Generator
+# Usage: scrape
+# Automatically generates your Discogs collection data
+# - Activates dedicated 'discogs' conda environment
+# - Runs Python scraper with no delay
+# - Deactivates environment when complete
 function scrape() {
     cd ~/Code/discogs/
     conda activate discogs
@@ -222,9 +248,24 @@ function scrape() {
     conda deactivate
 }
 
-# Downloads and video stuff
+# 🎥 Video Processing Tools
+
+# 🎬 YouTube Downloader with Chrome Cookies
+# Usage: dlc <video-url>
+# Downloads videos using yt-dlp with Chrome browser cookies
+# Useful for downloading from sites that require authentication
 alias dlc=" yt-dlp --cookies-from-browser chrome "
 
+# 🔄 Video Joiner Tool
+# Usage: vidjoin [file_prefix]
+# Combines multiple MP4 files with the same prefix into a single video
+# Features:
+# - Interactive mode if no prefix provided
+# - Safe temporary directory handling
+# - Two-step ffmpeg processing for reliable output
+# - Optional cleanup of source files
+# - Progress feedback and debug information
+# Example: vidjoin lecture_part will combine lecture_part1.mp4, lecture_part2.mp4, etc.
 function vidjoin() {
     if [ "$#" -eq 0 ]; then
         read "file_prefix?Enter file prefix: "
@@ -330,6 +371,16 @@ function vidjoin() {
     rm -rf "$temp_dir"
 }
 
+# 🎨 Video Processing Tool
+# Usage: vidpro <input.mp4>
+# Process an MP4 file while preserving video and audio codecs
+# Features:
+# - Creates output with '-pro' suffix
+# - Preserves original codecs (no re-encoding)
+# - Interactive cleanup option:
+#   - Remove original file, or
+#   - Rename original to '-raw' suffix
+# Example: vidpro recording.mp4 creates recording-pro.mp4
 function vidpro() {
     if [ "$#" -eq 0 ]; then
         echo "No file specified. Usage: process_videos 'filename.mp4'"
@@ -367,14 +418,18 @@ function vidpro() {
     fi
 }
 
-# bun completions
+# 🎵 Media and Download Tools
+# YouTube download and video processing aliases
+
+# 🔄 Bun Configuration
+# Bun JavaScript runtime configuration
 [ -s "/Users/russ.mckendrick/.bun/_bun" ] && source "/Users/russ.mckendrick/.bun/_bun"
 
-# bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# Ignore VS Code related Python commands and vidjoin commands
+# 📜 History Configuration
+# ZSH history settings for better command history management
 HISTORY_IGNORE="(|(*/.vscode/extensions/*)|(vidjoin *))"
 
 # Optional: Use zshaddhistory function for more precise control
