@@ -258,91 +258,67 @@ function scrape() {
 alias dlc=" yt-dlp --cookies-from-browser chrome "
 
 # 🔄 Video Joiner Tool
-# Usage: vidjoin [file_prefix]
-# Combines multiple MP4 files with the same prefix into a single video
-# Features:
-# - Interactive mode if no prefix provided
-# - Safe temporary directory handling
-# - Two-step ffmpeg processing for reliable output
-# - Optional cleanup of source files
-# - Progress feedback and debug information
-# Example: vidjoin lecture_part will combine lecture_part1.mp4, lecture_part2.mp4, etc.
+# Usage: vidjoin <file_prefix>
+# Concatenates multiple MP4 files that share a common file prefix.
+# The function searches for files matching <file_prefix>*.mp4, copies them to a temporary processing directory,
+# builds a file list for ffmpeg, and concatenates them using the concat demuxer.
+# It also provides error handling and prompts to optionally delete the original files.
 function vidjoin() {
     if [ "$#" -eq 0 ]; then
-        read "file_prefix?Enter file prefix: "
+        echo "Usage: vidjoin <file_prefix>"
+        return 1
     else
         file_prefix="$1"
     fi
 
-    # Create a temporary working directory
-    temp_dir="/tmp/vidjoin_$$"
-    mkdir -p "$temp_dir"
-    echo "Debug: Working in temporary directory: $temp_dir"
-    
-    # Create temp file list
-    temp_filelist="$temp_dir/filelist.txt"
+    # Create a temporary processing directory for MP4 concatenation
+    PROCESS_DIR="/tmp/vidjoin_processing_$$"
+    mkdir -p "$PROCESS_DIR"
+    echo "Debug: Working in processing directory: $PROCESS_DIR"
+
+    temp_filelist="$PROCESS_DIR/filelist.txt"
     : > "$temp_filelist"
-    
-    # Check for .mp4 files
+
+    # Look for MP4 files matching the prefix and copy them to the processing directory
     if ls ${file_prefix}*.mp4 >/dev/null 2>&1; then
-        echo "Debug: Found .mp4 files - copying to temp directory..."
-        for f in ${file_prefix}*.mp4; do
+        echo "Debug: Found MP4 files matching ${file_prefix}*.mp4 - copying to processing directory..."
+        for f in $(ls -v ${file_prefix}*.mp4); do
             if [[ -f "$f" ]]; then
-                cp "$f" "$temp_dir/"
+                cp "$f" "$PROCESS_DIR/"
                 echo "file '$(basename "$f")'" >> "$temp_filelist"
                 echo "Debug: Copied $f"
             fi
         done
     else
         echo "No matching MP4 files found for ${file_prefix}"
-        rm -rf "$temp_dir"
+        rm -rf "$PROCESS_DIR"
         return 1
     fi
-    
+
     output_name="${file_prefix}.mp4"
-    temp_output="$temp_dir/$output_name"
     echo "Debug: Output will be: $output_name"
-    
-    # Change to temp directory for processing
-    pushd "$temp_dir" > /dev/null
-    
-    # Run ffmpeg concat if we have files
+
+    pushd "$PROCESS_DIR" > /dev/null
+
     if [[ -s "$temp_filelist" ]]; then
-        # First concatenate to intermediate format
-        echo "Step 1: Converting to intermediate format..."
-        ffmpeg -f concat -safe 0 -i "$temp_filelist" \
-               -c copy \
-               -f mpegts \
-               "$temp_dir/intermediate.ts"
-        
-        if [ $? -eq 0 ]; then
-            echo "Step 2: Creating final MP4..."
-            # Then convert back to MP4 with proper container
-            ffmpeg -i "$temp_dir/intermediate.ts" \
-                   -c copy \
-                   -movflags +faststart \
-                   "$output_name"
-            ffmpeg_status=$?
-        else
-            ffmpeg_status=1
-        fi
+        echo "Concatenating MP4 files..."
+        ffmpeg -f concat -safe 0 -i "$temp_filelist" -c copy "$output_name"
+        ffmpeg_status=$?
     else
         echo "Error: No files were added to the list"
         popd > /dev/null
-        rm -rf "$temp_dir"
+        rm -rf "$PROCESS_DIR"
         return 1
     fi
-    
-    # Cleanup only after successful operation
+
     popd > /dev/null
     if [ $ffmpeg_status -eq 0 ]; then
-        # Copy the result back and verify
-        cp "$temp_dir/$output_name" "./$output_name"
+        cp "$PROCESS_DIR/$output_name" "./$output_name"
         if [ $? -eq 0 ] && [ -f "./$output_name" ]; then
             echo "Successfully created $output_name"
-        
+
             echo "The following files will be deleted:"
-            for f in ${file_prefix}*.mp4; do
+            for f in $(ls -v ${file_prefix}*.mp4); do
                 if [[ "$f" != "$output_name" ]]; then
                     echo "$f"
                 fi
@@ -351,7 +327,7 @@ function vidjoin() {
             read -q "REPLY?Do you want to delete the original files? (y/n) "
             echo
             if [[ $REPLY =~ ^[Yy]$ ]]; then
-                for f in ${file_prefix}*.mp4; do
+                for f in $(ls -v ${file_prefix}*.mp4); do
                     if [[ "$f" != "$output_name" ]]; then
                         rm "$f"
                     fi
@@ -359,17 +335,16 @@ function vidjoin() {
             fi
         else
             echo "Error: Failed to copy output file back to current directory"
-            rm -rf "$temp_dir"
+            rm -rf "$PROCESS_DIR"
             return 1
         fi
     else
         echo "Error: ffmpeg failed to process files"
-        rm -rf "$temp_dir"
+        rm -rf "$PROCESS_DIR"
         return 1
     fi
-    
-    # Cleanup only after successful operation
-    rm -rf "$temp_dir"
+
+    rm -rf "$PROCESS_DIR"
 }
 
 # 🎨 Video Processing Tool
