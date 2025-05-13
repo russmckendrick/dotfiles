@@ -255,7 +255,7 @@ function scrape() {
 # Usage: dlc <video-url>
 # Downloads videos using yt-dlp with Chrome browser cookies
 # Useful for downloading from sites that require authentication
-alias dlc=" yt-dlp --cookies-from-browser chrome "
+alias dlc="yt-dlp --cookies-from-browser chrome --extractor-args \"generic:impersonate=chrome\" "
 
 # 🔄 Video Joiner Tool
 # Usage: vidjoin <file_prefix>
