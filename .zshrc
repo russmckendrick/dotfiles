@@ -257,6 +257,23 @@ function scrape() {
     conda deactivate
 }
 
+# 🔄 Discogs Release Refresh Tool
+# Usage: disc-refresh <release_id>
+# Refreshes a specific Discogs release with interactive mode
+# Example: disc-refresh 28859359
+function disc-refresh() {
+    if [ "$#" -eq 0 ]; then
+        echo "Usage: disc-refresh <release_id>"
+        echo "Example: disc-refresh 28859359"
+        return 1
+    fi
+    
+    local release_id="$1"
+    
+    cd ~/code/discogs-v2/scrapper/
+    python main.py -c config.json release "$release_id" --force-refresh --interactive
+}
+
 # 🎥 Video Processing Tools
 
 # 🎬 YouTube Downloader with Chrome Cookies
