@@ -14,9 +14,10 @@ See the following blog posts
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 brew tap homebrew/cask-fonts
 brew install font-hack-nerd-font starship
-brew install tree pygments ffmpeg yt-dlp visual-studio-code drawio thefuck stow zoxide gh
+brew install tree pygments conda ffmpeg yt-dlp visual-studio-code drawio thefuck stow zoxide gh
 gh extension install github/gh-copilot # enable the gh-copilot  extension
 gh copilot alias -- zsh # run one and accept the t&cs
+conda config --set changeps1 False
 ```
 
 For IDEs update the `terminal.integrated.fontFamily` setting to `Hack Nerd Font Mono`.
