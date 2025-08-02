@@ -7,7 +7,7 @@ fi
 # 🏠 Oh My Zsh Configuration
 # Path to oh-my-zsh installation and theme selection
 export ZSH="/Users/russ.mckendrick/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git ansible docker macos terraform vscode gh brew)
 source $ZSH/oh-my-zsh.sh
 DEFAULT_USER=$(whoami)
@@ -25,9 +25,10 @@ export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_LOG_PATH="~/.local/ansible.log"
 export ANSIBLE_REMOTE_TMP="/tmp"
 export NODE_NO_WARNINGS=1
+export STARSHIP_CONFIG=~/.dotfiles/starship.toml
 
-# 🎯 Powerlevel10k Theme Configuration
-[[ ! -f ~/.dotfiles/.p10k.zsh ]] || source ~/.dotfiles/.p10k.zsh
+# # 🎯 Powerlevel10k Theme Configuration
+# [[ ! -f ~/.dotfiles/.p10k.zsh ]] || source ~/.dotfiles/.p10k.zsh
 
 # 🔧 Tool Initialization
 # Initialize helpful command-line tools
@@ -44,13 +45,13 @@ alias s='open -a "Sublime Text"'
 alias v='code '
 export PATH="/Users/russ.mckendrick/.codeium/windsurf/bin:$PATH"
 
-# 🔍 Cursor Trace Configuration
-if [[ -n $CURSOR_TRACE_ID ]]; then
-  PROMPT_EOL_MARK=""
-  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-  precmd() { print -Pn "\e]133;D;%?\a" }
-  preexec() { print -Pn "\e]133;C;\a" }
-fi
+# # 🔍 Cursor Trace Configuration
+# if [[ -n $CURSOR_TRACE_ID ]]; then
+#   PROMPT_EOL_MARK=""
+#   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+#   precmd() { print -Pn "\e]133;D;%?\a" }
+#   preexec() { print -Pn "\e]133;C;\a" }
+# fi
 
 # 🐍 Python Configuration
 alias pip='python -m pip'
@@ -274,6 +275,23 @@ function disc-refresh() {
     python main.py -c config.json release "$release_id" --force-refresh --interactive
 }
 
+# 🎤 Discogs Artist Refresh Tool
+# Usage: artist-refresh "<artist_name>"
+# Refreshes a specific Discogs artist data
+# Example: artist-refresh "Claudia Brücken"
+function artist-refresh() {
+    if [ "$#" -eq 0 ]; then
+        echo "Usage: artist-refresh \"<artist_name>\""
+        echo "Example: artist-refresh \"Claudia Brücken\""
+        return 1
+    fi
+    
+    local artist_name="$1"
+    
+    cd ~/code/discogs-v2/scrapper/
+    python main.py -c config.json artist "$artist_name" --force-refresh --interactive
+}
+
 # 🎥 Video Processing Tools
 
 # 🎬 YouTube Downloader with Chrome Cookies
@@ -443,4 +461,9 @@ zshaddhistory() {
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
+
+# 🤖 Claude Configuration
 alias claude="/Users/russ.mckendrick/.claude/local/claude"
+
+# 🌟 Starship Configuration
+eval "$(starship init zsh)"
