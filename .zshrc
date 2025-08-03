@@ -1,16 +1,13 @@
-# 🚀 Powerlevel10k Instant Prompt
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # 🏠 Oh My Zsh Configuration
 # Path to oh-my-zsh installation and theme selection
 export ZSH="/Users/russ.mckendrick/.oh-my-zsh"
-# ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(git ansible docker macos terraform vscode gh brew)
+plugins=(git macos terraform vscode brew starship sublime 1password)
 source $ZSH/oh-my-zsh.sh
+ZSH_THEME=""
 DEFAULT_USER=$(whoami)
+
+# # 🌟 Starship Configuration
+# eval "$(starship init zsh)"
 
 # 🛠️ Environment Setup and Path Configuration
 # Set up various environment paths and default configurations
@@ -27,14 +24,8 @@ export ANSIBLE_REMOTE_TMP="/tmp"
 export NODE_NO_WARNINGS=1
 export STARSHIP_CONFIG=~/.dotfiles/starship.toml
 
-# # 🎯 Powerlevel10k Theme Configuration
-# [[ ! -f ~/.dotfiles/.p10k.zsh ]] || source ~/.dotfiles/.p10k.zsh
-
-# 🔧 Tool Initialization
-# Initialize helpful command-line tools
-if command -v thefuck 1>/dev/null 2>&1; then
-  eval $(thefuck --alias)
-fi
+# 🤖 Claude Configuration
+alias claude="/Users/russ.mckendrick/.claude/local/claude"
 
 if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh)"
@@ -44,14 +35,6 @@ fi
 alias s='open -a "Sublime Text"'
 alias v='code '
 export PATH="/Users/russ.mckendrick/.codeium/windsurf/bin:$PATH"
-
-# # 🔍 Cursor Trace Configuration
-# if [[ -n $CURSOR_TRACE_ID ]]; then
-#   PROMPT_EOL_MARK=""
-#   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-#   precmd() { print -Pn "\e]133;D;%?\a" }
-#   preexec() { print -Pn "\e]133;C;\a" }
-# fi
 
 # 🐍 Python Configuration
 alias pip='python -m pip'
@@ -245,53 +228,6 @@ function csrm() {
     fi
 }
 
-# 💿 Discogs Collection Generator
-# Usage: scrape
-# Automatically generates your Discogs collection data
-# - Activates dedicated 'discogs' conda environment
-# - Runs Python scraper with no delay
-# - Deactivates environment when complete
-function scrape() {
-    cd ~/Code/discogs/
-    conda activate discogs
-    python discogs_scraper.py --all --delay=0
-    conda deactivate
-}
-
-# 🔄 Discogs Release Refresh Tool
-# Usage: disc-refresh <release_id>
-# Refreshes a specific Discogs release with interactive mode
-# Example: disc-refresh 28859359
-function disc-refresh() {
-    if [ "$#" -eq 0 ]; then
-        echo "Usage: disc-refresh <release_id>"
-        echo "Example: disc-refresh 28859359"
-        return 1
-    fi
-    
-    local release_id="$1"
-    
-    cd ~/code/discogs-v2/scrapper/
-    python main.py -c config.json release "$release_id" --force-refresh --interactive
-}
-
-# 🎤 Discogs Artist Refresh Tool
-# Usage: artist-refresh "<artist_name>"
-# Refreshes a specific Discogs artist data
-# Example: artist-refresh "Claudia Brücken"
-function artist-refresh() {
-    if [ "$#" -eq 0 ]; then
-        echo "Usage: artist-refresh \"<artist_name>\""
-        echo "Example: artist-refresh \"Claudia Brücken\""
-        return 1
-    fi
-    
-    local artist_name="$1"
-    
-    cd ~/code/discogs-v2/scrapper/
-    python main.py -c config.json artist "$artist_name" --force-refresh --interactive
-}
-
 # 🎥 Video Processing Tools
 
 # 🎬 YouTube Downloader with Chrome Cookies
@@ -437,16 +373,6 @@ function vidpro() {
     fi
 }
 
-# 🎵 Media and Download Tools
-# YouTube download and video processing aliases
-
-# 🔄 Bun Configuration
-# Bun JavaScript runtime configuration
-[ -s "/Users/russ.mckendrick/.bun/_bun" ] && source "/Users/russ.mckendrick/.bun/_bun"
-
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
 # 📜 History Configuration
 # ZSH history settings for better command history management
 HISTORY_IGNORE="(|(*/.vscode/extensions/*)|(vidjoin *))"
@@ -461,9 +387,3 @@ zshaddhistory() {
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
-
-# 🤖 Claude Configuration
-alias claude="/Users/russ.mckendrick/.claude/local/claude"
-
-# 🌟 Starship Configuration
-eval "$(starship init zsh)"

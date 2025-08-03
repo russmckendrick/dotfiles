@@ -65,12 +65,12 @@ style = "bg:color_orange fg:color_fg0"
 
 [battery]
 disabled = false
-full_symbol = "󰁹 "
-charging_symbol = "󰂄 "
-discharging_symbol = "󰂃 "
-unknown_symbol = "󰁽 "
-empty_symbol = "󰂎 "
-format = "[[ $symbol$percentage ](fg:color_fg0 bg:color_purple)]($style)"
+full_symbol = "󰁹"
+charging_symbol = "󰂄"
+discharging_symbol = "󰂃"
+unknown_symbol = "󰁽"
+empty_symbol = "󰂎"
+format = "[[ $symbol ](fg:color_fg0 bg:color_purple)]($style)"
 
 [[battery.display]]
 threshold = 100
@@ -192,7 +192,7 @@ format = '[[ $symbol( $environment) ](fg:color_fg0 bg:color_muddy_green)]($style
 disabled = false
 time_format = "%R"
 style = "bg:color_bg1"
-format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
+format = '[[ 󰥔 $time ](fg:color_fg0 bg:color_bg1)]($style)'
 
 [line_break]
 disabled = false
