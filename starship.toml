@@ -30,6 +30,8 @@ $time\
 [ ](fg:color_bg1)\
 $line_break$character"""
 
+add_newline = false
+
 palette = 'gruvbox_dark'
 
 [palettes.gruvbox_dark]
@@ -56,7 +58,6 @@ color_bright_aqua = '#8ec07c'
 color_bright_orange = '#fe8019'
 color_light_grey = '#a89984'
 color_muddy_green = '#79740e'
-
 
 [os]
 disabled = false
