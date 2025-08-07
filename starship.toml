@@ -258,7 +258,7 @@ format = '[[  $duration ](fg:color_fg0 bg:color_aqua)]($style)'
 threshold = 1
 symbol = ""
 style = "bg:color_bg1"
-format = '[[ $symbol $number ](fg:color_fg0 bg:color_bg1)]($style)'
+format = '[[ $symbol $number ](fg:color_fg0 bg:color_yellow)]($style)'
 
 [fill]
 symbol = " "
