@@ -252,7 +252,7 @@ recognize_signal_code = true
 [cmd_duration]
 min_time = 2000
 style = "bg:color_bg3"
-format = '[[  $duration ](fg:color_fg0 bg:color_bg3)]($style)'
+format = '[[  $duration ](fg:color_fg0 bg:color_aqua)]($style)'
 
 [jobs]
 threshold = 1
