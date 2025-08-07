@@ -28,17 +28,17 @@ $docker_context\
 $conda\
 [](fg:color_muddy_green)\
 $fill\
-[](fg:color_bg1)\
+[](fg:color_purple)\
 $time\
-[](fg:color_bg2 bg:color_bg1)\
+[](fg:color_red bg:color_purple)\
 $battery\
-[](fg:color_bg3 bg:color_bg2)\
+[](fg:color_aqua bg:color_red)\
 $cmd_duration\
-[](fg:color_bg4 bg:color_bg3)\
+[](fg:color_yellow bg:color_aqua)\
 $status\
-[](fg:color_bg1 bg:color_bg4)\
+[](fg:color_orange bg:color_yellow)\
 $jobs\
-[ ](fg:color_bg1)\
+[ ](fg:color_orange)\
 $line_break$character"""
 
 add_newline = false
@@ -73,7 +73,7 @@ color_bright_purple = '#d3869b'
 color_bright_aqua = '#8ec07c'
 color_bright_orange = '#fe8019'
 color_light_grey = '#a89984'
-color_muddy_green = '#79740e'
+color_muddy_green = '#83a598'
 
 [os]
 disabled = false
@@ -87,7 +87,7 @@ discharging_symbol = "󰂃"
 unknown_symbol = "󰁽"
 empty_symbol = "󰂎"
 style = "bg:color_bg2"
-format = "[[ $symbol ](fg:color_fg0 bg:color_bg2)]($style)"
+format = "[[ $symbol ](fg:color_fg0 bg:color_red)]($style)"
 
 [[battery.display]]
 threshold = 100
@@ -229,7 +229,7 @@ detect_files = ["kustomization.yaml", "Chart.yaml", "helmfile.yaml"]
 disabled = false
 time_format = "%R"
 style = "bg:color_bg1"
-format = '[[ 󰥔 $time ](fg:color_fg0 bg:color_bg1)]($style)'
+format = '[[ 󰥔 $time ](fg:color_fg0 bg:color_purple)]($style)'
 
 [line_break]
 disabled = false
@@ -246,7 +246,7 @@ vimcmd_visual_symbol = '[](bold fg:color_yellow)'
 [status]
 disabled = false
 style = "bg:color_bg4"
-format = '[[ ✖ $status ](fg:color_fg0 bg:color_bg4)]($style)'
+format = '[[ ✖ $status ](fg:color_fg0 bg:color_yellow)]($style)'
 map_symbol = true
 recognize_signal_code = true
 
