@@ -28,15 +28,15 @@ $docker_context\
 $conda\
 [](fg:color_muddy_green)\
 $fill\
-[](color_bg1)\
+[](fg:color_bg1)\
 $time\
-[](fg:color_purple bg:color_bg1)\
+[](fg:color_bg2 bg:color_bg1)\
 $battery\
-[](fg:color_bg1 bg:color_purple)\
+[](fg:color_bg3 bg:color_bg2)\
 $cmd_duration\
-[](fg:color_bg3 bg:color_bg1)\
+[](fg:color_bg4 bg:color_bg3)\
 $status\
-[](fg:color_bg1 bg:color_bg3)\
+[](fg:color_bg1 bg:color_bg4)\
 $jobs\
 [ ](fg:color_bg1)\
 $line_break$character"""
@@ -86,7 +86,8 @@ charging_symbol = "󰂄"
 discharging_symbol = "󰂃"
 unknown_symbol = "󰁽"
 empty_symbol = "󰂎"
-format = "[[ $symbol ](fg:color_fg0 bg:color_purple)]($style)"
+style = "bg:color_bg2"
+format = "[[ $symbol ](fg:color_fg0 bg:color_bg2)]($style)"
 
 [[battery.display]]
 threshold = 100
@@ -244,13 +245,15 @@ vimcmd_visual_symbol = '[](bold fg:color_yellow)'
 
 [status]
 disabled = false
-format = '[[ ✖ $status ](fg:color_fg0 bg:color_bg1)]($style)'
+style = "bg:color_bg4"
+format = '[[ ✖ $status ](fg:color_fg0 bg:color_bg4)]($style)'
 map_symbol = true
 recognize_signal_code = true
 
 [cmd_duration]
 min_time = 2000
-format = '[[  $duration ](fg:color_fg0 bg:color_bg1)]($style)'
+style = "bg:color_bg3"
+format = '[[  $duration ](fg:color_fg0 bg:color_bg3)]($style)'
 
 [jobs]
 threshold = 1
