@@ -86,7 +86,6 @@ charging_symbol = "󰂄"
 discharging_symbol = "󰂃"
 unknown_symbol = "󰁽"
 empty_symbol = "󰂎"
-style = "bg:color_bg2"
 format = "[[ $symbol ](fg:color_fg0 bg:color_red)]($style)"
 
 [[battery.display]]
