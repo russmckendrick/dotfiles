@@ -46,8 +46,8 @@ if [ -f ~/.ssh/id_rsa ]; then
 fi
 
 # 📝 Hugo Blog Aliases and Functions
-alias blog="cd ~/Code/blog/ && hugo server --buildDrafts --buildFuture"
-alias bloge="code ~/Code/blog/"
+alias blog="cd ~/Code/blog/ && npm run dev"
+alias bloge="cursor ~/Code/blog/"
 alias blogimg='for file in *; do [[ -f "$file" && ! -f "${file%.*}.meta" ]] && echo "{\n\"Title\": \"${file%.*}\"\n}" > "${file}.meta"; done'
 
 # 🏗️ Ansible Configuration
