@@ -230,6 +230,9 @@ function csrm() {
 
 # 🎥 Video Processing Tools
 
+# 🎥 Video rename tool
+alias videorenamer='python ~/Code/VideoRenamerCLI/rename_videos.py -c ~/Code/VideoRenamerCLI/config.yaml'
+
 # 🎬 YouTube Downloader with Chrome Cookies
 # Usage: dlc <video-url>
 # Downloads videos using yt-dlp with Chrome browser cookies
@@ -238,8 +241,8 @@ alias dlc="yt-dlp --cookies-from-browser chrome --extractor-args \"generic:imper
 
 # 🔄 Video Joiner Tool
 # Usage: vidjoin <file_prefix>
-# Concatenates multiple MP4 files that share a common file prefix.
-# The function searches for files matching <file_prefix>*.mp4, copies them to a temporary processing directory,
+# Concatenates multiple MP4 or TS files that share a common file prefix.
+# The function searches for files matching <file_prefix>*.mp4 or <file_prefix>*.ts, copies them to a temporary processing directory,
 # builds a file list for ffmpeg, and concatenates them using the concat demuxer.
 # It also provides error handling and prompts to optionally delete the original files.
 function vidjoin() {
@@ -250,7 +253,7 @@ function vidjoin() {
         file_prefix="$1"
     fi
 
-    # Create a temporary processing directory for MP4 concatenation
+    # Create a temporary processing directory for video concatenation
     PROCESS_DIR="/tmp/vidjoin_processing_$$"
     mkdir -p "$PROCESS_DIR"
     echo "Debug: Working in processing directory: $PROCESS_DIR"
@@ -258,23 +261,34 @@ function vidjoin() {
     temp_filelist="$PROCESS_DIR/filelist.txt"
     : > "$temp_filelist"
 
-    # Look for MP4 files matching the prefix and copy them to the processing directory
-    if ls ${file_prefix}*.mp4 >/dev/null 2>&1; then
+    # Determine file type (prefer .ts if found, otherwise .mp4)
+    local file_ext=""
+    local output_ext=""
+
+    if ls ${file_prefix}*.ts >/dev/null 2>&1; then
+        file_ext="ts"
+        output_ext="mp4"
+        echo "Debug: Found TS files matching ${file_prefix}*.ts - copying to processing directory..."
+    elif ls ${file_prefix}*.mp4 >/dev/null 2>&1; then
+        file_ext="mp4"
+        output_ext="mp4"
         echo "Debug: Found MP4 files matching ${file_prefix}*.mp4 - copying to processing directory..."
-        for f in $(ls -v ${file_prefix}*.mp4); do
-            if [[ -f "$f" ]]; then
-                cp "$f" "$PROCESS_DIR/"
-                echo "file '$(basename "$f")'" >> "$temp_filelist"
-                echo "Debug: Copied $f"
-            fi
-        done
     else
-        echo "No matching MP4 files found for ${file_prefix}"
+        echo "No matching MP4 or TS files found for ${file_prefix}"
         rm -rf "$PROCESS_DIR"
         return 1
     fi
 
-    output_name="${file_prefix}.mp4"
+    # Copy files to processing directory and build file list
+    for f in $(ls -v ${file_prefix}*.${file_ext}); do
+        if [[ -f "$f" ]]; then
+            cp "$f" "$PROCESS_DIR/"
+            echo "file '$(basename "$f")'" >> "$temp_filelist"
+            echo "Debug: Copied $f"
+        fi
+    done
+
+    output_name="${file_prefix}.${output_ext}"
     echo "Debug: Output will be: $output_name"
 
     pushd "$PROCESS_DIR" > /dev/null
@@ -297,16 +311,16 @@ function vidjoin() {
             echo "Successfully created $output_name"
 
             echo "The following files will be deleted:"
-            for f in $(ls -v ${file_prefix}*.mp4); do
+            for f in $(ls -v ${file_prefix}*.${file_ext}); do
                 if [[ "$f" != "$output_name" ]]; then
                     echo "$f"
                 fi
             done
-                
+
             read -q "REPLY?Do you want to delete the original files? (y/n) "
             echo
             if [[ $REPLY =~ ^[Yy]$ ]]; then
-                for f in $(ls -v ${file_prefix}*.mp4); do
+                for f in $(ls -v ${file_prefix}*.${file_ext}); do
                     if [[ "$f" != "$output_name" ]]; then
                         rm "$f"
                     fi
@@ -388,3 +402,8 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
 export PATH="$HOME/.local/bin:$PATH"
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/russ.mckendrick/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
