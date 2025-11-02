@@ -24,9 +24,6 @@ export ANSIBLE_REMOTE_TMP="/tmp"
 export NODE_NO_WARNINGS=1
 export STARSHIP_CONFIG=~/.dotfiles/starship.toml
 
-# 🤖 Claude Configuration
-alias claude="/Users/russ.mckendrick/.claude/local/claude"
-
 if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh)"
 fi

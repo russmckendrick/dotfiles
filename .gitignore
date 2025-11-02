@@ -4,6 +4,7 @@
 backups/.zprofile 
 backups/.zshrc
 backups/.gitconfig
+backups/.claude
 
 # Compiled Source
 ######################
@@ -38,4 +39,21 @@ Thumbs.db
 .sass-cache/
 .codekit-config.json
 config.codekit
+
+# Claude Code Runtime Data
+######################
+# Exclude runtime data that should never be version controlled
+
+claude/.claude/local/node_modules/
+claude/.claude/*.jsonl
+claude/.claude/projects/
+claude/.claude/file-history/
+claude/.claude/debug/
+claude/.claude/shell-snapshots/
+claude/.claude/todos/
+claude/.claude/session-env/
+claude/.claude/ide/
+claude/.claude/statsig/
+claude/.claude.json
+claude/Library/Application Support/Claude/config.json
 

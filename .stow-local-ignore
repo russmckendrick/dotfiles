@@ -8,3 +8,18 @@ backups
 iterm2_profile
 starship.toml
 CLAUDE.md
+claude
+
+# Claude Code - exclude runtime directories and state files
+# These should be generated locally, not symlinked
+claude/.claude/local/node_modules
+claude/.claude/history.jsonl
+claude/.claude/projects
+claude/.claude/file-history
+claude/.claude/debug
+claude/.claude/shell-snapshots
+claude/.claude/todos
+claude/.claude/session-env
+claude/.claude/ide
+claude/.claude/statsig
+claude/.claude.json

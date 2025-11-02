@@ -60,6 +60,7 @@ The `.zshrc` file is organized into logical sections (marked with emoji comments
 ### Starship Prompt Configuration
 
 The `starship.toml` uses a custom Gruvbox Dark color palette with segments for:
+
 - OS, username, directory, git status
 - Programming language detection (Node.js, Python, Rust, Go, etc.)
 - Kubernetes, Docker, Conda contexts
@@ -69,10 +70,12 @@ The `starship.toml` uses a custom Gruvbox Dark color palette with segments for:
 ### Key Custom Functions
 
 **Conda Management:**
+
 - `cs`: Interactive conda environment selector with colored output
 - `csrm`: Safe conda environment removal with confirmation and base environment protection
 
 **Video Processing:**
+
 - `vidjoin <prefix>`: Concatenates multiple video files (MP4/TS) with the same prefix using ffmpeg
 - `vidpro <file>`: Processes MP4 files while preserving codecs, with cleanup options
 - `dlc <url>`: Downloads videos using yt-dlp with Chrome cookies for authenticated sites
@@ -80,18 +83,21 @@ The `starship.toml` uses a custom Gruvbox Dark color palette with segments for:
 ### Important Aliases
 
 **Development:**
+
 - `blog`: Start Hugo development server for blog
 - `bloge`: Open blog in Cursor editor
 - `v`: Open in VS Code
 - `s`: Open in Sublime Text
 
 **Terraform:**
+
 - `tfi`: terraform init
 - `tfa`: terraform apply -auto-approve
 - `tfd`: terraform destroy
 - `tfrm`: Clean Terraform state and cache files
 
 **Git:**
+
 - `gs`: git status
 - `ga`: git add .
 - `gc`: git commit -m
@@ -99,12 +105,14 @@ The `starship.toml` uses a custom Gruvbox Dark color palette with segments for:
 - `gpu`: git pull
 
 **Navigation:**
+
 - `cod`: cd ~/Code/
 - `dt`: cd ~/.dotfiles/
 
 ## Environment Variables
 
 Key environment variables set in `.zshrc`:
+
 - `STARSHIP_CONFIG`: Points to ~/.dotfiles/starship.toml
 - `ANSIBLE_LOG_PATH`: ~/.local/ansible.log
 - `ANSIBLE_HOST_KEY_CHECKING`: False
@@ -119,9 +127,96 @@ Key environment variables set in `.zshrc`:
 - Git LFS enabled
 - User configured as: russmckendrick <github@mckendrick.email>
 
+## Claude Code Configuration
+
+The `claude/` stow package contains Claude Code CLI and Desktop app configurations:
+
+### File Structure
+
+```
+claude/
+├── .claude/
+│   ├── settings.json              # Global Claude Code CLI settings
+│   ├── statusline-command.sh      # Custom Gruvbox Dark statusline
+│   ├── agents/
+│   │   └── react-ui-developer.md  # Custom React UI agent
+│   ├── plugins/
+│   │   └── config.json            # Plugin configuration
+│   └── local/
+│       └── package.json           # npm dependencies (run npm install)
+└── Library/Application Support/Claude/
+    └── claude_desktop_config.json # MCP servers (lighthouse, cloudflare)
+```
+
+### Configuration Hierarchy
+
+Claude Code uses cascading settings (highest to lowest priority):
+
+1. Command-line arguments
+2. Local project settings (`.claude/settings.local.json` - never version controlled)
+3. Shared project settings (`.claude/settings.json` - can be shared with team)
+4. User global settings (`~/.claude/settings.json` - in dotfiles)
+
+### Custom Agents
+
+The `react-ui-developer.md` agent is a specialized agent for React component development with shadcn styling. Custom agents are defined using markdown with YAML frontmatter.
+
+### MCP Servers
+
+MCP (Model Context Protocol) servers provide external integrations:
+
+- **lighthouse**: Web performance auditing
+- **cloudflare**: Cloudflare API integration
+
+These are configured in `claude_desktop_config.json` and use `npx` for execution.
+
+### Statusline Customization
+
+The `statusline-command.sh` provides a custom status line that matches the Gruvbox Dark theme used in Starship. It displays project context and workspace information.
+
+### Installation
+
+Install Claude Code via Homebrew:
+
+```bash
+brew install --cask claude-code
+```
+
+### Post-Installation
+
+After installing Claude Code, deploy the configuration using Stow:
+
+```bash
+# Deploy Claude Code configuration (from dotfiles directory)
+stow claude
+```
+
+The `stow claude` command creates symlinks from the `claude/` package to your home directory, deploying both CLI settings (`~/.claude/`) and Desktop app configuration (`~/Library/Application Support/Claude/`).
+
+### What's NOT Version Controlled
+
+Runtime data stays local (excluded via `.stow-local-ignore` and `.gitignore`):
+
+- `~/.claude/history.jsonl` - Command history
+- `~/.claude/projects/` - Project metadata
+- `~/.claude/local/node_modules/` - npm packages
+- `~/.claude/file-history/` - File change tracking
+- Debug logs, session data, IDE integration state
+
+### Modifying Claude Code Configuration
+
+1. **Adding custom slash commands**: Create `.md` files in `~/.claude/commands/` (currently no custom commands)
+2. **Creating new agents**: Add `.md` files with YAML frontmatter to `~/.claude/agents/`
+3. **Configuring MCP servers**: Edit `claude_desktop_config.json` in the stow package
+4. **Changing global settings**: Edit `settings.json` in the stow package
+5. **Customizing statusline**: Modify `statusline-command.sh`
+
+After making changes in the stow package, restow to update symlinks.
+
 ## Testing and Validation
 
 There are no automated tests for shell configurations. Manual validation involves:
+
 - Sourcing `.zshrc` and checking for errors: `source ~/.zshrc`
 - Testing individual functions and aliases
 - Verifying Starship prompt renders correctly
@@ -139,6 +234,7 @@ When modifying this repository:
 ## Dependencies
 
 Core tools expected to be installed:
+
 - Oh My Zsh framework
 - Starship prompt
 - Homebrew package manager
