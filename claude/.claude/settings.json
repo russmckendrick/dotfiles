@@ -3,5 +3,8 @@
     "type": "command",
     "command": "zsh ~/.claude/statusline-command.sh"
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": false,
+  "enabledPlugins": {
+    "documentation-generation@claude-code-workflows": true
+  }
 }

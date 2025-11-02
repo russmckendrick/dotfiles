@@ -1,0 +1,10 @@
+{
+  "claude-code-workflows": {
+    "source": {
+      "source": "github",
+      "repo": "wshobson/agents"
+    },
+    "installLocation": "/Users/russ.mckendrick/.claude/plugins/marketplaces/claude-code-workflows",
+    "lastUpdated": "2025-11-02T13:15:22.688Z"
+  }
+}
