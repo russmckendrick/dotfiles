@@ -8,3 +8,4 @@ backups
 iterm2_profile
 starship.toml
 CLAUDE.md
+clean_zsh_history.sh
