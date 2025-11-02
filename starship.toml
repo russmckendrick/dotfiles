@@ -10,16 +10,13 @@ $directory\
 $git_branch\
 $git_status\
 $git_state\
+$git_metrics\
 [](fg:color_aqua bg:color_blue)\
 $c\
 $cpp\
 $rust\
 $golang\
 $nodejs\
-$php\
-$java\
-$kotlin\
-$haskell\
 $python\
 $package\
 [](fg:color_blue bg:color_muddy_green)\
@@ -152,6 +149,12 @@ format = '[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)'
 style = "bg:color_aqua"
 format = '[[ $state( $progress_current/$progress_total) ](fg:color_fg0 bg:color_aqua)]($style)'
 
+[git_metrics]
+disabled = false
+added_style = "fg:color_bright_yellow bg:color_aqua"
+deleted_style = "fg:color_bright_orange bg:color_aqua"
+format = '[[+$added]($added_style)/[-$deleted]($deleted_style) ](fg:color_fg0 bg:color_aqua)'
+
 [nodejs]
 symbol = ""
 style = "bg:color_blue"
@@ -174,26 +177,6 @@ format = '[[ $symbol ](fg:color_fg0 bg:color_blue)]($style)'
 
 [golang]
 symbol = "󰟓"
-style = "bg:color_blue"
-format = '[[ $symbol ](fg:color_fg0 bg:color_blue)]($style)'
-
-[php]
-symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol ](fg:color_fg0 bg:color_blue)]($style)'
-
-[java]
-symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol ](fg:color_fg0 bg:color_blue)]($style)'
-
-[kotlin]
-symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol ](fg:color_fg0 bg:color_blue)]($style)'
-
-[haskell]
-symbol = ""
 style = "bg:color_blue"
 format = '[[ $symbol ](fg:color_fg0 bg:color_blue)]($style)'
 
