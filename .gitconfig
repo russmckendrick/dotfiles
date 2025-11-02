@@ -7,7 +7,7 @@
 	process = git-lfs filter-process
 	required = true
 [user]
-	name = Russ McKendrick
-	email = ghrmneurosyn.site@wibble.email
+	name = russmckendrick
+	email = github@mckendrick.email
 [init]
 	defaultBranch = main
