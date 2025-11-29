@@ -399,6 +399,7 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
 export PATH="$HOME/.local/bin:$PATH"
+
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/russ.mckendrick/.docker/completions $fpath)
 autoload -Uz compinit
@@ -407,13 +408,6 @@ compinit
 
 # Added by Antigravity
 export PATH="/Users/russ.mckendrick/.antigravity/antigravity/bin:$PATH"
-
-# bun completions
-[ -s "/Users/russ.mckendrick/.bun/_bun" ] && source "/Users/russ.mckendrick/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 
 # pnpm aliases
 alias npm='echo "Error: Use pnpm"; false'
