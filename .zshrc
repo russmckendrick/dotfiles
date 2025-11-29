@@ -23,6 +23,7 @@ export ANSIBLE_LOG_PATH="~/.local/ansible.log"
 export ANSIBLE_REMOTE_TMP="/tmp"
 export NODE_NO_WARNINGS=1
 export STARSHIP_CONFIG=~/.dotfiles/starship.toml
+export PATH="/Users/russ.mckendrick/.antigravity/antigravity/bin:$PATH"
 
 if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh)"
@@ -42,10 +43,15 @@ if [ -f ~/.ssh/id_rsa ]; then
   ssh-add -K ~/.ssh/id_rsa 2>/dev/null
 fi
 
-# 📝 Hugo Blog Aliases and Functions
+# 📝 Blog Aliases and Functions
 alias blog="cd ~/Code/blog/ && pnpm run dev"
 alias bloge="cursor ~/Code/blog/"
 alias blogimg='for file in *; do [[ -f "$file" && ! -f "${file%.*}.meta" ]] && echo "{\n\"Title\": \"${file%.*}\"\n}" > "${file}.meta"; done'
+
+# 📦 pnpm aliases
+alias npm='echo "Error: Use pnpm"; false'
+alias n="pnpm"
+alias ni="pnpm install"
 
 # 🏗️ Ansible Configuration
 # Ansible-specific settings and aliases
@@ -406,10 +412,3 @@ autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 
-# Added by Antigravity
-export PATH="/Users/russ.mckendrick/.antigravity/antigravity/bin:$PATH"
-
-# pnpm aliases
-alias npm='echo "Error: Use pnpm"; false'
-alias n="pnpm"
-alias ni="pnpm install"
