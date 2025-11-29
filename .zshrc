@@ -43,7 +43,7 @@ if [ -f ~/.ssh/id_rsa ]; then
 fi
 
 # 📝 Hugo Blog Aliases and Functions
-alias blog="cd ~/Code/blog/ && npm run dev"
+alias blog="cd ~/Code/blog/ && pnpm run dev"
 alias bloge="cursor ~/Code/blog/"
 alias blogimg='for file in *; do [[ -f "$file" && ! -f "${file%.*}.meta" ]] && echo "{\n\"Title\": \"${file%.*}\"\n}" > "${file}.meta"; done'
 
@@ -404,3 +404,18 @@ fpath=(/Users/russ.mckendrick/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
+
+# Added by Antigravity
+export PATH="/Users/russ.mckendrick/.antigravity/antigravity/bin:$PATH"
+
+# bun completions
+[ -s "/Users/russ.mckendrick/.bun/_bun" ] && source "/Users/russ.mckendrick/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# pnpm aliases
+alias npm='echo "Error: Use pnpm"; false'
+alias n="pnpm"
+alias ni="pnpm install"
