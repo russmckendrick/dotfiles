@@ -24,6 +24,18 @@ $kubernetes\
 $docker_context\
 $conda\
 [](fg:color_muddy_green)\
+$fill\
+[](fg:color_purple)\
+$time\
+[](fg:color_red bg:color_purple)\
+$battery\
+[](fg:color_aqua bg:color_red)\
+$cmd_duration\
+[](fg:color_yellow bg:color_aqua)\
+$status\
+[](fg:color_orange bg:color_yellow)\
+$jobs\
+[ ](fg:color_orange)\
 $line_break$character"""
 
 add_newline = false
@@ -195,6 +207,12 @@ style = "bg:color_muddy_green"
 format = '[[ 󱃾 $context( \($namespace\)) ](fg:color_fg0 bg:color_muddy_green)]($style)'
 detect_files = ["kustomization.yaml", "Chart.yaml", "helmfile.yaml"]
 
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:color_bg1"
+format = '[[ 󰥔 $time ](fg:color_fg0 bg:color_purple)]($style)'
+
 [line_break]
 disabled = false
 
@@ -224,3 +242,6 @@ threshold = 1
 symbol = ""
 style = "bg:color_bg1"
 format = '[[ $symbol $number ](fg:color_fg0 bg:color_yellow)]($style)'
+
+[fill]
+symbol = " "

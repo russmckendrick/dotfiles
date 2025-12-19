@@ -242,6 +242,20 @@ alias videorenamer='python ~/Code/VideoRenamerCLI/rename_videos.py -c ~/Code/Vid
 # Useful for downloading from sites that require authentication
 alias dlc="yt-dlp --cookies-from-browser chrome --extractor-args \"generic:impersonate=chrome\" "
 
+# 🪓 Fix PNG Videos
+# Usage: fix_png_videos
+# Renames .png files that are actually videos to .mp4
+function fix_png_videos() {
+    # Check for .png files, (N) prevents error if no files found
+    for f in *.png(N); do
+        # Check if file content indicates video (ignoring filename)
+        if file -b "$f" | grep -qE "video|Media|MP4"; then
+            echo "Renaming $f to ${f%.png}.mp4"
+            mv "$f" "${f%.png}.mp4"
+        fi
+    done
+}
+
 # 🔄 Video Joiner Tool
 # Usage: vidjoin <file_prefix>
 # Concatenates multiple MP4 or TS files that share a common file prefix.

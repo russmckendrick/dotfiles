@@ -43,3 +43,7 @@ config.codekit
 # Claude
 ######################
 .claude
+
+# Sample
+######################
+sample.*
