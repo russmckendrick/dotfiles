@@ -404,6 +404,97 @@ function vidpro() {
     fi
 }
 
+# 🌐 Network Tools
+
+# 🔌 Interactive Dev Server Port Manager
+# Usage: ports
+# Displays a numbered list of node/python processes listening on TCP ports
+# and allows you to select one to kill.
+# Features:
+# - Filters to node and python processes only
+# - Color-coded process list
+# - Shows PID, process name, port, and user
+# - Confirmation before killing
+# - Input validation
+function ports() {
+    # Colors and formatting
+    local RED='\033[0;31m'
+    local BLUE='\033[0;34m'
+    local GREEN='\033[0;32m'
+    local YELLOW='\033[1;33m'
+    local CYAN='\033[0;36m'
+    local BOLD='\033[1m'
+    local NC='\033[0m' # No Color
+
+    # Get listening node/python processes (skip header line, filter by command name)
+    local raw_lines=("${(@f)$(lsof -iTCP -sTCP:LISTEN -P -n 2>/dev/null | tail -n +2 | grep -iE '^(node|python)')}")
+
+    if [ ${#raw_lines[@]} -eq 0 ] || [ -z "${raw_lines[1]}" ]; then
+        echo "\n${BOLD}${BLUE}🌐 No node/python dev servers listening${NC}\n"
+        return 0
+    fi
+
+    # Deduplicate by PID:PORT, collect display info
+    typeset -A seen
+    local pids=()
+    local names=()
+    local port_list=()
+    local users=()
+
+    for line in "${raw_lines[@]}"; do
+        local pname=$(echo "$line" | awk '{print $1}')
+        local pid=$(echo "$line" | awk '{print $2}')
+        local user=$(echo "$line" | awk '{print $3}')
+        local port=$(echo "$line" | awk '{print $9}' | sed 's/.*://')
+        local key="${pid}:${port}"
+
+        if [ -z "${seen[$key]}" ]; then
+            seen[$key]=1
+            pids+=("$pid")
+            names+=("$pname")
+            port_list+=("$port")
+            users+=("$user")
+        fi
+    done
+
+    # Print header with styling
+    echo "\n${BOLD}${BLUE}🌐 Dev Servers Listening on TCP Ports:${NC}\n"
+
+    # Print processes with numbers and colors
+    for i in {1..${#pids[@]}}; do
+        echo "  ${YELLOW}$i)${NC} ${CYAN}${names[$i]}${NC} (PID: ${GREEN}${pids[$i]}${NC}) → port ${BOLD}${port_list[$i]}${NC} [${BLUE}${users[$i]}${NC}]"
+    done
+
+    # Get user selection with styled prompt
+    echo "\n${BOLD}${BLUE}Enter number to kill (${GREEN}1-${#pids[@]}${BLUE}) or ${YELLOW}q${BLUE} to quit:${NC} "
+    read selection
+
+    # Handle quit
+    if [[ -z "$selection" || "$selection" == "q" ]]; then
+        echo "${BLUE}💡 No action taken${NC}"
+        return 0
+    fi
+
+    # Validate input
+    if [[ "$selection" =~ ^[0-9]+$ ]] && [ "$selection" -ge 1 ] && [ "$selection" -le "${#pids[@]}" ]; then
+        echo "${RED}⚠️  Kill ${CYAN}${names[$selection]}${RED} (PID: ${GREEN}${pids[$selection]}${RED}) on port ${BOLD}${port_list[$selection]}${RED}? (y/N):${NC} "
+        read confirm
+
+        if [[ "$confirm" =~ ^[Yy]$ ]]; then
+            kill -9 "${pids[$selection]}" 2>/dev/null
+            if [ $? -eq 0 ]; then
+                echo "${GREEN}✅ Process ${CYAN}${names[$selection]}${GREEN} (PID: ${pids[$selection]}) killed${NC}"
+            else
+                echo "${RED}❌ Failed to kill process. Try running with sudo.${NC}"
+            fi
+        else
+            echo "${BLUE}💡 Operation cancelled${NC}"
+        fi
+    else
+        echo "${RED}❌ Invalid selection${NC}"
+    fi
+}
+
 # 📜 History Configuration
 # ZSH history settings for better command history management
 HISTORY_IGNORE="(|(*/.vscode/extensions/*)|(vidjoin *))"
@@ -426,3 +517,11 @@ autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 
+
+# pnpm
+export PNPM_HOME="/Users/russ.mckendrick/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
