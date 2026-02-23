@@ -104,6 +104,142 @@ alias gc='git commit -m' # requires you to type a commit message
 alias gp='git push'
 alias gpu='git pull'
 
+# 🤖 AI Agent Configuration Tools
+
+# 🔄 CLAUDE.md → AGENTS.md Migration Tool
+# Usage: agentsmd
+# Migrates CLAUDE.md files to AGENTS.md (the open standard) across a git repo.
+# For each CLAUDE.md found:
+#   - Renames to AGENTS.md (git mv for tracked, mv for untracked)
+#   - Creates a CLAUDE.md → AGENTS.md symlink for backward compatibility
+# Also updates .gitignore with CLAUDE.md entries.
+# Safe to run repeatedly (idempotent).
+function agentsmd() {
+    # Colors and formatting
+    local RED='\033[0;31m'
+    local BLUE='\033[0;34m'
+    local GREEN='\033[0;32m'
+    local YELLOW='\033[1;33m'
+    local CYAN='\033[0;36m'
+    local BOLD='\033[1m'
+    local NC='\033[0m' # No Color
+
+    # Verify we're inside a git repository
+    if ! git rev-parse --is-inside-work-tree &>/dev/null; then
+        echo "${RED}❌ Not inside a git repository${NC}"
+        return 1
+    fi
+
+    local repo_root
+    repo_root=$(git rev-parse --show-toplevel)
+
+    echo "\n${BOLD}${BLUE}🤖 CLAUDE.md → AGENTS.md Migration Tool${NC}\n"
+
+    local changes_made=0
+
+    # Discover all CLAUDE.md (regular files only) and AGENTS.md files
+    local claude_files=()
+    local agents_files=()
+
+    while IFS= read -r -d '' f; do
+        claude_files+=("$f")
+    done < <(find "$repo_root" -name "CLAUDE.md" -type f -not -path "*/.git/*" -print0 2>/dev/null)
+
+    while IFS= read -r -d '' f; do
+        agents_files+=("$f")
+    done < <(find "$repo_root" -name "AGENTS.md" -type f -not -path "*/.git/*" -print0 2>/dev/null)
+
+    # Build a set of directories that already have AGENTS.md
+    typeset -A agents_dirs
+    for f in "${agents_files[@]}"; do
+        agents_dirs[$(dirname "$f")]=1
+    done
+
+    # Process each CLAUDE.md file
+    for claude_file in "${claude_files[@]}"; do
+        local dir=$(dirname "$claude_file")
+        local agents_file="$dir/AGENTS.md"
+        local rel_claude=${claude_file#$repo_root/}
+        local rel_agents=${agents_file#$repo_root/}
+
+        if [ -z "${agents_dirs[$dir]}" ]; then
+            # Scenario A: Fresh migration — CLAUDE.md exists, no AGENTS.md
+            echo "  ${CYAN}📄 $rel_claude${NC} → ${GREEN}$rel_agents${NC}"
+
+            # Check if file is tracked by git
+            if git -C "$repo_root" ls-files --error-unmatch "$rel_claude" &>/dev/null; then
+                git -C "$repo_root" mv "$claude_file" "$agents_file"
+            else
+                mv "$claude_file" "$agents_file"
+            fi
+
+            # Create backward-compatible symlink
+            ln -s "AGENTS.md" "$claude_file"
+            echo "  ${GREEN}🔗 Created symlink ${CYAN}$rel_claude${GREEN} → AGENTS.md${NC}"
+            changes_made=1
+        fi
+    done
+
+    # Scenario B: Check directories that already have AGENTS.md
+    for agents_file in "${agents_files[@]}"; do
+        local dir=$(dirname "$agents_file")
+        local claude_file="$dir/CLAUDE.md"
+        local rel_claude=${claude_file#$repo_root/}
+
+        if [ -L "$claude_file" ]; then
+            local link_target=$(readlink "$claude_file")
+            if [ "$link_target" = "AGENTS.md" ]; then
+                echo "  ${YELLOW}⏭️  Symlink already correct: ${CYAN}$rel_claude${YELLOW} → AGENTS.md${NC}"
+            else
+                rm "$claude_file"
+                ln -s "AGENTS.md" "$claude_file"
+                echo "  ${GREEN}🔗 Fixed symlink ${CYAN}$rel_claude${GREEN} → AGENTS.md${NC}"
+                changes_made=1
+            fi
+        elif [ ! -e "$claude_file" ]; then
+            ln -s "AGENTS.md" "$claude_file"
+            echo "  ${GREEN}🔗 Created symlink ${CYAN}$rel_claude${GREEN} → AGENTS.md${NC}"
+            changes_made=1
+        else
+            echo "  ${YELLOW}⚠️  ${CYAN}$rel_claude${YELLOW} exists as a regular file alongside AGENTS.md — skipping${NC}"
+        fi
+    done
+
+    # Update .gitignore
+    local gitignore="$repo_root/.gitignore"
+    local ignore_updated=0
+
+    if [ ! -f "$gitignore" ]; then
+        touch "$gitignore"
+        echo "  ${GREEN}📝 Created .gitignore${NC}"
+    fi
+
+    if ! grep -qxF "CLAUDE.md" "$gitignore"; then
+        echo "CLAUDE.md" >> "$gitignore"
+        ignore_updated=1
+    fi
+
+    if ! grep -qxF "**/CLAUDE.md" "$gitignore"; then
+        echo "**/CLAUDE.md" >> "$gitignore"
+        ignore_updated=1
+    fi
+
+    if [ $ignore_updated -eq 1 ]; then
+        echo "  ${GREEN}📝 Updated .gitignore with CLAUDE.md entries${NC}"
+        changes_made=1
+    else
+        echo "  ${YELLOW}⏭️  .gitignore already has CLAUDE.md entries${NC}"
+    fi
+
+    # Summary
+    echo ""
+    if [ $changes_made -eq 1 ]; then
+        echo "${GREEN}✅ Migration complete!${NC}"
+    else
+        echo "${GREEN}✅ Everything already up to date${NC}"
+    fi
+}
+
 # 📊 Draw.io Configuration
 alias draw.io='/Applications/draw.io.app/Contents/MacOS/draw.io'
 

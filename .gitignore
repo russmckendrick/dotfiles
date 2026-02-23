@@ -47,3 +47,5 @@ config.codekit
 # Sample
 ######################
 sample.*
+CLAUDE.md
+**/CLAUDE.md
